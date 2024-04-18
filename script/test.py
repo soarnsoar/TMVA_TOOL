@@ -10,7 +10,7 @@ from keras.optimizers import SGD, Adam, Nadam
 import ROOT
 import os
 maindir=os.getenv("JH_TMVA_TOOL_MAINDIR")
-testinput=maindir+"/inputs/test/ForLepJetChargeReliability_DYJets.root"
+testinput=maindir+"/inputs/test/ForLepJetChargeReliability_DYJets_test.root"
 
 variables={
     "belectron_eta":{
