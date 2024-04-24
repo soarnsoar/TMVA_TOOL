@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 import os
 from ExportShellCondorSetup_tamsa import Export
-
+maindir=os.getenv("JH_TMVA_TOOL_MAINDIR")
 curdir=os.getcwd()
 def GetOptionCommand(name,nlayer,nnode,batchsize,dropout,nepoch,version,channel):
     nlayer=str(nlayer)
@@ -15,7 +15,7 @@ def MakeCommand(workdir,name,nlayer,nnode,batchsize,dropout,nepoch,version,chann
     commandlist=[
         "cd "+curdir,
         "cd "+workdir,
-        "run_single.py "+GetOptionCommand(name,nlayer,nnode,batchsize,dropout,nepoch,version,channel),
+        "python "+maindir+"/script/run_single.py "+GetOptionCommand(name,nlayer,nnode,batchsize,dropout,nepoch,version,channel),
         ]
     ret="&&".join(commandlist)
     return ret
@@ -40,7 +40,11 @@ for nlayer in nlayers:
                     name=str(nlayer)+"__"+str(nnode)+"__"+str(batchsize)+"__"+str(dropout)
                     WORKDIR="WORKDIR/"+channel+"/"+name
                     command=MakeCommand(WORKDIR,name,nlayer,nnode,batchsize,dropout,nepoch,version,channel)
-                    Export(WORKDIR,command,"dnn_"+channel,1,1)
+                    if nlayers > 30:
+                        memory=10000
+                    else:
+                        memory=False
+                    Export(WORKDIR,command,"dnn_"+channel,1,1,memory)
 njobs=len(nlayers)*len(nnodes)*len(batchsizes)*len(dropouts)*len(channels)
 print "njobs=",njobs
 

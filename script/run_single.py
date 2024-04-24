@@ -31,16 +31,28 @@ if __name__== '__main__':
 
         bmuon_var,belectron_var,bjet_var=GetVariableConfig(version)
         variables=[]
+
+
+        sigcut=""
+        bkgcut=""
         if channel=="muon":
                 variables=bmuon_var+bjet_var
+                sigcut="(bmuon_charge*bjet_partonFlavour < 0)*Has_bMuon"
+                bkgcut="(bmuon_charge*bjet_partonFlavour > 0)*Has_bMuon"
         elif channel=="electron":
                 variables=belectron_var+bjet_var
+                sigcut="(belectron_charge*bjet_partonFlavour < 0)*(Has_bElectron)*(!Has_bMuon)"
+                bkgcut="(belectron_charge*bjet_partonFlavour > 0)*(Has_bElectron)*(!Has_bMuon)"
         elif channel=="jet":
                 variables=bjet_var
+                sigcut="(bjet_charge*bjet_partonFlavour < 0)*(!Has_bElectron)*(!Has_bMuon)"
+                bkgcut="(bjet_charge*bjet_partonFlavour > 0)*(!Has_bElectron)*(!Has_bMuon)"
         else:
                 print "[run_nnode_nlayer_nepoch_batchsize.py]Wrong channel input"
                 channel
                 1/0
+
+
 
         from TMVA_DNN import TMVA_DNN_TOOL
         test=TMVA_DNN_TOOL()
