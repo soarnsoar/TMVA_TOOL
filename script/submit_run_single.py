@@ -27,7 +27,9 @@ nnodes=[64,128,256]
 batchsizes=[100,1000,3000]
 dropouts=[0.2,0.5]
 nepoch=300
-version=1.0
+#versions=[1.0,1.01,1.02]
+versions=[1.0]
+versions=[1.03]
 channels=["muon","electron","jet"]
 
 #def Export(WORKDIR,command,jobname,submit,ncpu,memory=False,nretry=3):
@@ -37,15 +39,16 @@ for nlayer in nlayers:
         for batchsize in batchsizes:
             for dropout in dropouts:
                 for channel in channels:
-                    name=str(nlayer)+"__"+str(nnode)+"__"+str(batchsize)+"__"+str(dropout)
-                    WORKDIR="WORKDIR/"+channel+"/"+name
-                    command=MakeCommand(WORKDIR,name,nlayer,nnode,batchsize,dropout,nepoch,version,channel)
-                    if nlayers > 30:
-                        memory=10000
-                    else:
-                        memory=False
-                    Export(WORKDIR,command,"dnn_"+channel,1,1,memory)
-njobs=len(nlayers)*len(nnodes)*len(batchsizes)*len(dropouts)*len(channels)
+                    for version in versions:
+                        name=str(nlayer)+"__"+str(nnode)+"__"+str(batchsize)+"__"+str(dropout)
+                        WORKDIR="WORKDIR/"+str(version)+"/"+channel+"/"+name
+                        command=MakeCommand(WORKDIR,name,nlayer,nnode,batchsize,dropout,nepoch,version,channel)
+                        if nlayers > 30:
+                            memory=10000
+                        else:
+                            memory=False
+                        Export(WORKDIR,command,"dnn_"+channel+"_"+str(version),1,1,memory)
+njobs=len(nlayers)*len(nnodes)*len(batchsizes)*len(dropouts)*len(channels)*len(versions)
 print "njobs=",njobs
 
 '''

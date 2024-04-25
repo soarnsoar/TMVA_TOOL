@@ -122,7 +122,11 @@ class TMVA_DNN_TOOL:
         self.factory.EvaluateAllMethods()
         for method in self.methodlist:
             _cut=self.factory.GetMethod(self.factoryname,method['name']).GetSignalReferenceCut()
-            print method['name'],_cut
+            print "ref.cut=",method['name'],_cut
+            #_sigeff=self.factory.GetMethod(self.factoryname,method['name']).GetEfficiency(_cut,"SigEff")
+            #print "sig.eff=",_sigeff
+            #_bkgeff=self.factory.GetMethod(self.factoryname,method['name']).GetEfficiency(_cut,"BkgEff")
+            #print "bkg.eff=",_sigeff
         self.fout.Close()
         
     def SetFactory(self):
