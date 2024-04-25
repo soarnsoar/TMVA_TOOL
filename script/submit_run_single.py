@@ -27,9 +27,9 @@ nnodes=[64,128,256]
 batchsizes=[100,1000,3000]
 dropouts=[0.2,0.5]
 nepoch=300
-#versions=[1.0,1.01,1.02]
-versions=[1.0]
-versions=[1.03]
+versions=[1.0,1.01,1.02,1.03]
+#versions=[1.0]
+#versions=[1.03]
 channels=["muon","electron","jet"]
 
 #def Export(WORKDIR,command,jobname,submit,ncpu,memory=False,nretry=3):
