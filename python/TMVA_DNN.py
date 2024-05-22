@@ -35,7 +35,7 @@ class TMVA_DNN_TOOL:
             'options' : ":".join(["H",
                                   "!V",
                                   #"VarTransform=N,D",
-                                  "VarTransform=G",
+                                  #"VarTransform=G",
                                   "FilenameModel=__outmodelname__",
                                   "NumEpochs=__nepoch__",
                                   "SaveBestOnly=false",

@@ -11,13 +11,19 @@ if __name__== '__main__':
         parser = argparse.ArgumentParser(description='input argument')
         parser.add_argument('--nlayer', dest='nlayer', default="5", help="nlayyer")
         parser.add_argument('--name', dest='name', default="dnn", help="name")
-        parser.add_argument('--nnode', dest='nnode', default="128", help="nnode")
-        parser.add_argument('--nepoch', dest='nepoch', default="300", help="nepoch")
-        parser.add_argument('--batchsize', dest='batchsize', default="1000", help="batchsize")
-        parser.add_argument('--dropout', dest='dropout', default="0.2", help="dropout")
-        parser.add_argument('--version', dest='version', default="1.0", help="version")    
+
+        parser.add_argument('--nnode', dest='nnode', default="", help="nnode")
+        parser.add_argument('--nepoch', dest='nepoch', default="", help="nepoch")
+        parser.add_argument('--batchsize', dest='batchsize', default="", help="batchsize")
+        parser.add_argument('--dropout', dest='dropout', default="", help="dropout")
+        parser.add_argument('--version', dest='version', default="", help="version")    
         parser.add_argument('--channel', dest='channel', default="-", help="muon/electron/jet")    
-        
+        parser.add_argument('--switch', dest='switch', action="store_true",default=False, help="switch sig/bkg")    
+
+        parser.add_argument('--year', dest='year', default="", help="year")        
+        parser.add_argument('--analyzer', dest='analyzer', default="", help="year")        
+
+
         args = parser.parse_args()
         
         nlayer=int(args.nlayer)
@@ -28,6 +34,11 @@ if __name__== '__main__':
         name=args.name
         version=args.version
         channel=args.channel
+        switch=args.switch
+
+        analyzer=args.analyzer
+        year=args.year
+
 
         bmuon_var,belectron_var,bjet_var=GetVariableConfig(version)
         variables=[]
@@ -59,14 +70,26 @@ if __name__== '__main__':
         test.SetFactoryName(name)
         test.SetInputVariables(variables)
         test.SetSpectators(["bjet_partonFlavour","lhe_b_pdgid","bjet_partonFlavour*lhe_b_pdgid>0","bmuon_charge","belectron_charge","bjet_charge"])
-        test.SetCut_Sig(sigcut)
-        test.SetCut_Bkg(bkgcut)
+        if switch:
+                print "!!!switch sig <-> bkg input events!!!"
+                test.SetCut_Sig(bkgcut)
+                test.SetCut_Bkg(sigcut)
+        else:
+                test.SetCut_Sig(sigcut)
+                test.SetCut_Bkg(bkgcut)
         test.SetNlayer(nlayer)
         test.SetDropout(dropout)
-        test.SetTestTreeAndInput_Sig("OutTree/sig",[maindir+"/inputs/bChargeID_TrainTree/2017/bChargeID_TrainTree_SkimTree_Dilepton_DYJets_MG.root"])
-        test.SetTrainTreeAndInput_Sig("OutTree/sig",[maindir+"/inputs/bChargeID_TrainTree/2017/bChargeID_TrainTree_SkimTree_Dilepton_DYJets.root"])
-        test.SetTestTreeAndInput_Bkg("OutTree/bkg",[maindir+"/inputs/bChargeID_TrainTree/2017/bChargeID_TrainTree_SkimTree_Dilepton_DYJets_MG.root"])
-        test.SetTrainTreeAndInput_Bkg("OutTree/bkg",[maindir+"/inputs/bChargeID_TrainTree/2017/bChargeID_TrainTree_SkimTree_Dilepton_DYJets.root"])
+
+        if switch:
+                test.SetTestTreeAndInput_Bkg("OutTree/sig",[maindir+"/inputs/"+analyzer+"/v"+version+"/"+year+"/"+analyzer+"_DYJetsToEE_MiNNLO.root",maindir+"/inputs/"+analyzer+"/v"+version+"/"+year+"/"+analyzer+"_DYJetsToMuMu_MiNNLO.root"])
+                test.SetTrainTreeAndInput_Bkg("OutTree/sig",[maindir+"/inputs/"+analyzer+"/v"+version+"/"+year+"/"+analyzer+"_DYJets.root"])
+                test.SetTestTreeAndInput_Sig("OutTree/bkg",[maindir+"/inputs/"+analyzer+"/v"+version+"/"+year+"/"+analyzer+"_DYJetsToEE_MiNNLO.root",maindir+"/inputs/"+analyzer+"/v"+version+"/"+year+"/"+analyzer+"_DYJetsToMuMu_MiNNLO.root"])
+                test.SetTrainTreeAndInput_Sig("OutTree/bkg",[maindir+"/inputs/"+analyzer+"/v"+version+"/"+year+"/"+analyzer+"_DYJets.root"])
+        else:
+                test.SetTestTreeAndInput_Sig("OutTree/sig",[maindir+"/inputs/"+analyzer+"/v"+version+"/"+year+"/"+analyzer+"_DYJetsToEE_MiNNLO.root",maindir+"/inputs/"+analyzer+"/v"+version+"/"+year+"/"+analyzer+"_DYJetsToMuMu_MiNNLO.root"])
+                test.SetTrainTreeAndInput_Sig("OutTree/sig",[maindir+"/inputs/"+analyzer+"/v"+version+"/"+year+"/"+analyzer+"_DYJets.root"])
+                test.SetTestTreeAndInput_Bkg("OutTree/bkg",[maindir+"/inputs/"+analyzer+"/v"+version+"/"+year+"/"+analyzer+"_DYJetsToEE_MiNNLO.root",maindir+"/inputs/"+analyzer+"/v"+version+"/"+year+"/"+analyzer+"_DYJetsToMuMu_MiNNLO.root"])
+                test.SetTrainTreeAndInput_Bkg("OutTree/bkg",[maindir+"/inputs/"+analyzer+"/v"+version+"/"+year+"/"+analyzer+"_DYJets.root"])
         test.SetWeight_Sig("weight")
         test.SetWeight_Bkg("weight")
         test.SetNepoch(nepoch)
