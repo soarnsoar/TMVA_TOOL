@@ -34,7 +34,7 @@ class TMVA_DNN_TOOL:
             'name' : "DNN",
             'options' : ":".join(["H",
                                   "!V",
-                                  #"VarTransform=N,D",
+                                  "VarTransform=__transform__",
                                   #"VarTransform=G",
                                   "FilenameModel=__outmodelname__",
                                   "NumEpochs=__nepoch__",
@@ -42,7 +42,7 @@ class TMVA_DNN_TOOL:
                                   "BatchSize=__batchsize__",
                                   "verbose=2",
                                   "TriesEarlyStopping=30",
-                                  #"IgnoreNegWeightsInTraining=True",
+                                  "IgnoreNegWeightsInTraining=True",
                               ])
         }
                        )
@@ -58,8 +58,10 @@ class TMVA_DNN_TOOL:
     def SetSpectators(self,_spectators):
         self.spectators=_spectators
     def SetCut_Sig(self,cut_exp):
+        print "<sig cut>=",cut_exp
         self.cut_sig=cut_exp
     def SetCut_Bkg(self,cut_exp):
+        print "<bkg cut>=",cut_exp
         self.cut_bkg=cut_exp
     def SetNlayer(self,nlayer):
         self.nlayer=nlayer
@@ -106,6 +108,8 @@ class TMVA_DNN_TOOL:
         self.nepoch=nepoch
     def SetBatchSize(self,batchsize):
         self.batchsize=batchsize
+    def SetTransform(self,transform):
+        self.transform=transform
     def AddMethod(self,_method):
         self.methodlist.append(_method)
     def SetOutputName(self,outputname):
@@ -147,11 +151,15 @@ class TMVA_DNN_TOOL:
 
         self.dataloader.SetSignalWeightExpression(self.weight_exp_sig)
         self.dataloader.SetBackgroundWeightExpression(self.weight_exp_bkg)
+        print ">>>>self.dataloader.PrepareTrainingAndTestTree"
+        print "Set sig cut ->",self.cut_sig
+        print "Set bkg cut ->",self.cut_bkg
         self.dataloader.PrepareTrainingAndTestTree(ROOT.TCut(self.cut_sig),ROOT.TCut(self.cut_bkg),self.dataoption)
         for method in self.methodlist:
             method['options']=method['options'].replace("__nepoch__",str(self.nepoch))
             method['options']=method['options'].replace("__batchsize__",str(self.batchsize))
             method['options']=method['options'].replace("__outmodelname__",str(self.outmodelname))
+            method['options']=method['options'].replace("__transform__",str(self.transform))
             self.factory.BookMethod(self.dataloader,
                                method['type'],
                                method['name'],
@@ -160,20 +168,29 @@ class TMVA_DNN_TOOL:
         
         
     def SetTreeInfo(self):
+        print "---sig_test---"
+        print "<self.testtree_sig>",self.testtree_sig
         self.dict_tree["sig_test"]=ROOT.TChain(self.testtree_sig)
         for _path in self.testinputlist_sig:
+            print _path
             self.dict_tree["sig_test"].Add(_path)
-
+        print "--bkg_test---"
+        print "<self.testtree_bkg>",self.testtree_bkg
         self.dict_tree["bkg_test"]=ROOT.TChain(self.testtree_bkg)
         for _path in self.testinputlist_bkg:
+            print _path
             self.dict_tree["bkg_test"].Add(_path)
-
+        print "---sig_train---"
+        print "<self.traintree_sig>",self.traintree_sig
         self.dict_tree["sig_train"]=ROOT.TChain(self.traintree_sig)
         for _path in self.traininputlist_sig:
+            print _path
             self.dict_tree["sig_train"].Add(_path)
-
+        print "---bkg_train---"
+        print "<self.traintree_bkg>",self.traintree_bkg
         self.dict_tree["bkg_train"]=ROOT.TChain(self.traintree_bkg)
         for _path in self.traininputlist_bkg:
+            print _path
             self.dict_tree["bkg_train"].Add(_path)
 
 

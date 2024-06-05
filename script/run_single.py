@@ -6,6 +6,10 @@ def GetVariableConfig(version):
         version=str(version)
 	exec(open(maindir+"/config/v"+version+"/variables.py"))
         return bmuon_var,belectron_var,bjet_var
+def GetCutConfig(version):
+        version=str(version)
+	exec(open(maindir+"/config/v"+version+"/cuts.py"))
+        return bmuon_sigcut,bmuon_bkgcut,belectron_sigcut,belectron_bkgcut,bjet_sigcut,bjet_bkgcut
 if __name__== '__main__':
         import argparse
         parser = argparse.ArgumentParser(description='input argument')
@@ -19,9 +23,13 @@ if __name__== '__main__':
         parser.add_argument('--version', dest='version', default="", help="version")    
         parser.add_argument('--channel', dest='channel', default="-", help="muon/electron/jet")    
         parser.add_argument('--switch', dest='switch', action="store_true",default=False, help="switch sig/bkg")    
+        parser.add_argument('--useLO', dest='useLO', action="store_true",default=False, help="useLO")    
 
         parser.add_argument('--year', dest='year', default="", help="year")        
         parser.add_argument('--analyzer', dest='analyzer', default="", help="year")        
+
+        parser.add_argument('--transform', dest='transform', default="I", help="transform")        
+
 
 
         args = parser.parse_args()
@@ -39,8 +47,10 @@ if __name__== '__main__':
         analyzer=args.analyzer
         year=args.year
 
-
+        transform=args.transform
+        useLO=args.useLO
         bmuon_var,belectron_var,bjet_var=GetVariableConfig(version)
+        bmuon_sigcut,bmuon_bkgcut,belectron_sigcut,belectron_bkgcut,bjet_sigcut,bjet_bkgcut=GetCutConfig(version)
         variables=[]
 
 
@@ -48,16 +58,16 @@ if __name__== '__main__':
         bkgcut=""
         if channel=="muon":
                 variables=bmuon_var+bjet_var
-                sigcut="(bmuon_charge*bjet_partonFlavour < 0)*Has_bMuon"
-                bkgcut="(bmuon_charge*bjet_partonFlavour > 0)*Has_bMuon"
+                sigcut=bmuon_sigcut
+                bkgcut=bmuon_bkgcut
         elif channel=="electron":
                 variables=belectron_var+bjet_var
-                sigcut="(belectron_charge*bjet_partonFlavour < 0)*(Has_bElectron)*(!Has_bMuon)"
-                bkgcut="(belectron_charge*bjet_partonFlavour > 0)*(Has_bElectron)*(!Has_bMuon)"
+                sigcut=belectron_sigcut
+                bkgcut=belectron_bkgcut
         elif channel=="jet":
                 variables=bjet_var
-                sigcut="(bjet_charge*bjet_partonFlavour < 0)*(!Has_bElectron)*(!Has_bMuon)"
-                bkgcut="(bjet_charge*bjet_partonFlavour > 0)*(!Has_bElectron)*(!Has_bMuon)"
+                sigcut=bjet_sigcut
+                bkgcut=bjet_bkgcut
         else:
                 print "[run_nnode_nlayer_nepoch_batchsize.py]Wrong channel input"
                 channel
@@ -80,19 +90,36 @@ if __name__== '__main__':
         test.SetNlayer(nlayer)
         test.SetDropout(dropout)
 
+
+
         if switch:
                 test.SetTestTreeAndInput_Bkg("OutTree/sig",[maindir+"/inputs/"+analyzer+"/v"+version+"/"+year+"/"+analyzer+"_DYJetsToEE_MiNNLO.root",maindir+"/inputs/"+analyzer+"/v"+version+"/"+year+"/"+analyzer+"_DYJetsToMuMu_MiNNLO.root"])
-                test.SetTrainTreeAndInput_Bkg("OutTree/sig",[maindir+"/inputs/"+analyzer+"/v"+version+"/"+year+"/"+analyzer+"_DYJets.root"])
+                if useLO:
+                        test.SetTrainTreeAndInput_Bkg("OutTree/sig",[maindir+"/inputs/"+analyzer+"/v"+version+"/"+year+"/"+analyzer+"_DYJets_MG.root"])
+                else:
+                        test.SetTrainTreeAndInput_Bkg("OutTree/sig",[maindir+"/inputs/"+analyzer+"/v"+version+"/"+year+"/"+analyzer+"_DYJets.root"])
                 test.SetTestTreeAndInput_Sig("OutTree/bkg",[maindir+"/inputs/"+analyzer+"/v"+version+"/"+year+"/"+analyzer+"_DYJetsToEE_MiNNLO.root",maindir+"/inputs/"+analyzer+"/v"+version+"/"+year+"/"+analyzer+"_DYJetsToMuMu_MiNNLO.root"])
-                test.SetTrainTreeAndInput_Sig("OutTree/bkg",[maindir+"/inputs/"+analyzer+"/v"+version+"/"+year+"/"+analyzer+"_DYJets.root"])
+                if useLO:
+                        test.SetTrainTreeAndInput_Sig("OutTree/bkg",[maindir+"/inputs/"+analyzer+"/v"+version+"/"+year+"/"+analyzer+"_DYJets_MG.root"])
+                else:
+                        test.SetTrainTreeAndInput_Sig("OutTree/bkg",[maindir+"/inputs/"+analyzer+"/v"+version+"/"+year+"/"+analyzer+"_DYJets.root"])
         else:
                 test.SetTestTreeAndInput_Sig("OutTree/sig",[maindir+"/inputs/"+analyzer+"/v"+version+"/"+year+"/"+analyzer+"_DYJetsToEE_MiNNLO.root",maindir+"/inputs/"+analyzer+"/v"+version+"/"+year+"/"+analyzer+"_DYJetsToMuMu_MiNNLO.root"])
-                test.SetTrainTreeAndInput_Sig("OutTree/sig",[maindir+"/inputs/"+analyzer+"/v"+version+"/"+year+"/"+analyzer+"_DYJets.root"])
+                if useLO:
+                        test.SetTrainTreeAndInput_Sig("OutTree/sig",[maindir+"/inputs/"+analyzer+"/v"+version+"/"+year+"/"+analyzer+"_DYJets_MG.root"])
+                else:
+                        test.SetTrainTreeAndInput_Sig("OutTree/sig",[maindir+"/inputs/"+analyzer+"/v"+version+"/"+year+"/"+analyzer+"_DYJets.root"])
                 test.SetTestTreeAndInput_Bkg("OutTree/bkg",[maindir+"/inputs/"+analyzer+"/v"+version+"/"+year+"/"+analyzer+"_DYJetsToEE_MiNNLO.root",maindir+"/inputs/"+analyzer+"/v"+version+"/"+year+"/"+analyzer+"_DYJetsToMuMu_MiNNLO.root"])
-                test.SetTrainTreeAndInput_Bkg("OutTree/bkg",[maindir+"/inputs/"+analyzer+"/v"+version+"/"+year+"/"+analyzer+"_DYJets.root"])
-        test.SetWeight_Sig("weight")
-        test.SetWeight_Bkg("weight")
+                if useLO:
+                        test.SetTrainTreeAndInput_Bkg("OutTree/bkg",[maindir+"/inputs/"+analyzer+"/v"+version+"/"+year+"/"+analyzer+"_DYJets_MG.root"])
+                else:
+                        test.SetTrainTreeAndInput_Bkg("OutTree/bkg",[maindir+"/inputs/"+analyzer+"/v"+version+"/"+year+"/"+analyzer+"_DYJets.root"])
+        #test.SetWeight_Sig("weight")
+        #test.SetWeight_Bkg("weight")
+        test.SetWeight_Sig("1.")
+        test.SetWeight_Bkg("1.")
         test.SetNepoch(nepoch)
         test.SetBatchSize(batchsize)
+        test.SetTransform(transform)
         test.SetOutputName(name+".root")
         test.Run()

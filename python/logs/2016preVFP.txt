@@ -1,0 +1,30 @@
+[year] 2016preVFP
+--Best for  muon --
+roc= 0.724
+version,nlayer,nnode,batchsize,dropout
+['2405.2', 5, 64, 100, 0.2, 'I']
+[year] 2016preVFP
+--Best for  muon --
+roc= 0.726
+version,nlayer,nnode,batchsize,dropout
+['2405.2', 5, 64, 100, 0.2, 'I']
+[year] 2016preVFP
+--Best for  electron --
+roc= 0.652
+version,nlayer,nnode,batchsize,dropout
+['2405.2', 5, 64, 100, 0.2, 'I']
+[year] 2016preVFP
+--Best for  electron --
+roc= 0.658
+version,nlayer,nnode,batchsize,dropout
+['2405.2', 5, 64, 100, 0.2, 'I']
+[year] 2016preVFP
+--Best for  jet --
+roc= 0.583
+version,nlayer,nnode,batchsize,dropout
+['2405.2', 5, 64, 100, 0.2, 'I']
+[year] 2016preVFP
+--Best for  jet --
+roc= 0.593
+version,nlayer,nnode,batchsize,dropout
+['2405.2', 5, 64, 100, 0.2, 'I']

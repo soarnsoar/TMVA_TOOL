@@ -1,0 +1,15 @@
+[year] 2016postVFP
+--Best for  muon --
+roc= 0.746
+version,nlayer,nnode,batchsize,dropout,transform
+['2405.2', 5, 64, 1000, 0.2, 'G']
+[year] 2016postVFP
+--Best for  electron --
+roc= 0.676
+version,nlayer,nnode,batchsize,dropout,transform
+['2405.2', 5, 128, 1000, 0.2, 'G']
+[year] 2016postVFP
+--Best for  jet --
+roc= 0.6
+version,nlayer,nnode,batchsize,dropout,transform
+['2405.2', 5, 64, 100, 0.2, 'G']
