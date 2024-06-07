@@ -1,0 +1,11 @@
+#bmuon_sigcut="(bmuon_charge*bjet_partonFlavour < 0)&&Has_bMuon&&(bmuon_palongjetratio<1.)&&(!TMath::IsNaN(bmuon_P_jetrest))"
+#bmuon_bkgcut="(bmuon_charge*bjet_partonFlavour > 0)&&Has_bMuon&&(bmuon_palongjetratio<1.)&&(!TMath::IsNaN(bmuon_P_jetrest))"
+#belectron_sigcut="(belectron_charge*bjet_partonFlavour < 0)&&(Has_bElectron)&&(belectron_palongjetratio<1.)&&(!TMath::IsNaN(belectron_P_jetrest))"
+#belectron_bkgcut="(belectron_charge*bjet_partonFlavour > 0)&&(Has_bElectron)&&(belectron_palongjetratio<1.)&&(!TMath::IsNaN(belectron_P_jetrest))"
+
+bmuon_sigcut="(bjet_charge*bjet_partonFlavour < 0)&&Has_bMuon"
+bmuon_bkgcut="(bjet_charge*bjet_partonFlavour > 0)&&Has_bMuon"
+belectron_sigcut="(bjet_charge*bjet_partonFlavour < 0)&&(Has_bElectron)"
+belectron_bkgcut="(bjet_charge*bjet_partonFlavour > 0)&&(Has_bElectron)"
+bjet_sigcut="(bjet_charge*bjet_partonFlavour < 0)&&(!Has_bElectron)&&(!Has_bMuon)"
+bjet_bkgcut="(bjet_charge*bjet_partonFlavour > 0)&&(!Has_bElectron)&&(!Has_bMuon)"

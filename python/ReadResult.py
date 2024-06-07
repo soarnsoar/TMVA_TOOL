@@ -61,7 +61,7 @@ if __name__ == '__main__':
 
     nepoch=300
     #versions=[1.0,1.01,1.02,1.03]
-    versions=["2405.2"]
+    versions=["2405.4","2405.4_jc"]
     channels=["muon","electron","jet"]
     transforms=["I","G","U","P","N"]
     useLOs=[True, False]
@@ -72,19 +72,13 @@ if __name__ == '__main__':
 
 
     ##--2nd
-    nlayers=[1,2,3,4,5,6,7]
-    
-    nnodes=[50,64,80]
-    
-    
-    batchsizes=[90,100,110,120]
-    
-    dropouts=[0.1,0.2,0.3]
-    nepoch=300
-    
-    transforms=["I","I,N","N,U","N"]+["G","G,U","N,G","N,G,U","N,U,G"]
-    
-    useLOs=[False]
+    #nlayers=[1,2,3,4,5,6,7]
+    #nnodes=[50,64,80]
+    #batchsizes=[90,100,110,120]
+    #dropouts=[0.1,0.2,0.3]
+    #nepoch=300
+    #transforms=["I","I,N","N,U","N"]+["G","G,U","N,G","N,G,U","N,U,G"]
+    #useLOs=[False]
 
     for channel in channels:
         best_roc=0.

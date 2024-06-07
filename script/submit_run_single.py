@@ -12,56 +12,46 @@ batchsizes=[100,500,1000]
 dropouts=[0.2,0.4,0.6]
 nepoch=300
 transforms=["I","G","U","P","N"]
-
-
-##---2nd
-nlayers=[1,2,3,4,5,6,7]
-#nlayers=[1,2]
-#nnodes=[64,128,256]
-nnodes=[50,64,80]
-#batchsizes=[100,500,1000]
-batchsizes=[90,100,110,120]
-#dropouts=[0.2,0.4,0.6]
-dropouts=[0.1,0.2,0.3]
-nepoch=300
-#transforms=["I","G","U","P","N"]
-#transforms=["I","I,N","N,U","G"]
-transforms=["N","N,U","G","G,U","N,G","N,G,U","N,U,G"]
-
-
-
-versions=["2405.2"]
-#channels=["muon","electron","jet"]
-channels=["muon","electron"]
-switches=[False] 
+versions=["2405.4_jc","2405.4"]
 years=["2016preVFP","2016postVFP","2017","2018"]
 analyzers=["EEMu_MuMuE_Method"]
+channels=["muon","electron"]
+switches=[False] 
+useLOs=[False]
+
+##---2nd
+#nlayers=[1,2,3,4,5,6,7]
+#nnodes=[50,64,80]
+#batchsizes=[90,100,110,120]
+#dropouts=[0.1,0.2,0.3]
+#nepoch=300
+#transforms=["N","N,U","G","G,U","N,G","N,G,U","N,U,G"]
+
+#channels=["muon","electron","jet"]
+#channels=["muon","electron"]
+#switches=[False] 
+#years=["2016preVFP","2016postVFP","2017","2018"]
+#analyzers=["EEMu_MuMuE_Method"]
 #transforms=["I","N,D","G","U","P","N"]
 
 #useLOs=[True, False]
-useLOs=[False]
+#useLOs=[False]
 
 ##--3rd
 
-nlayers=[1,2,3,4,5]
-#nlayers=[1,2]
-#nnodes=[64,128,256]
-nnodes=[50]
-#batchsizes=[100,500,1000]
-batchsizes=[100]
-#dropouts=[0.2,0.4,0.6]
-dropouts=[0.1,0.2,0.3]
-nepoch=300
-versions=["2405.2"]
+#nlayers=[1,2,3,4,5]
+#nnodes=[50]
+#batchsizes=[100]
+#dropouts=[0.1,0.2,0.3]
+#nepoch=300
 #channels=["muon","electron","jet"]
-channels=["jet"]
-switches=[False] 
-years=["2016preVFP","2016postVFP","2017","2018"]
-analyzers=["EEMu_MuMuE_Method"]
-transforms=["N","N,U","G","G,U","N,G","N,G,U","N,U,G"]
+#switches=[False] 
+#years=["2016preVFP","2016postVFP","2017","2018"]
+#analyzers=["EEMu_MuMuE_Method"]
+#transforms=["N","N,U","G","G,U","N,G","N,G,U","N,U,G"]
 
 #useLOs=[True, False]
-useLOs=[False]
+#useLOs=[False]
 
 
 submit=True
