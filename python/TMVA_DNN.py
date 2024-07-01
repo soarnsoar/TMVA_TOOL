@@ -52,6 +52,7 @@ class TMVA_DNN_TOOL:
         self.SetOptimizer(Nadam(lr=0.002, beta_1=0.9, beta_2=0.999, epsilon=None, schedule_decay=0.004))
         self.SetMetrics(['accuracy'])
         self.SetDataOption("!V")
+        self.dict_AUC={}
     def SetInputVariables(self,_variables):
         self.variables=_variables
         self.input_dim=len(self.variables)
@@ -126,13 +127,17 @@ class TMVA_DNN_TOOL:
         self.factory.EvaluateAllMethods()
         for method in self.methodlist:
             _cut=self.factory.GetMethod(self.factoryname,method['name']).GetSignalReferenceCut()
+            _auc=self.factory.GetROCIntegral(self.dataloader,method['name'])
             print "ref.cut=",method['name'],_cut
+            print "auc=",_auc
+            self.dict_AUC[method['name']]=_auc
             #_sigeff=self.factory.GetMethod(self.factoryname,method['name']).GetEfficiency(_cut,"SigEff")
             #print "sig.eff=",_sigeff
             #_bkgeff=self.factory.GetMethod(self.factoryname,method['name']).GetEfficiency(_cut,"BkgEff")
             #print "bkg.eff=",_sigeff
         self.fout.Close()
-        
+    def GetAUC(self,_name):
+        return self.dict_AUC[_name]
     def SetFactory(self):
         self.fout = ROOT.TFile(self.outputname,"RECREATE")
         self.factory=ROOT.TMVA.Factory(self.factoryname,self.fout,self.factoryoption)

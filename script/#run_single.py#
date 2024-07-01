@@ -20,7 +20,7 @@ if __name__== '__main__':
         parser.add_argument('--nepoch', dest='nepoch', default="", help="nepoch")
         parser.add_argument('--batchsize', dest='batchsize', default="", help="batchsize")
         parser.add_argument('--dropout', dest='dropout', default="", help="dropout")
-        parser.add_argument('--version', dest='version', default="", help="version")    
+        parser.add_argument('--Version', dest='version', default="", help="version")    
         parser.add_argument('--channel', dest='channel', default="-", help="muon/electron/jet")    
         parser.add_argument('--switch', dest='switch', action="store_true",default=False, help="switch sig/bkg")    
         parser.add_argument('--useLO', dest='useLO', action="store_true",default=False, help="useLO")    
