@@ -134,6 +134,7 @@ if __name__== '__main__':
 
         parser.add_argument('--transform', dest='transform', default="I", help="transform")        
         parser.add_argument('--auc_cut', dest='auc_cut', default=-1, help="min auc to use")        
+        parser.add_argument('--ntrial', dest='ntrial_cut', default=4, help="if it drops AUC, try more indep. trainings")        
 
         #parser.add_argument('--skiplist', dest='skiplist', default=None, help="Don't use this variable for the training")
 
@@ -154,6 +155,7 @@ if __name__== '__main__':
         year=args.year
 
         transform=args.transform
+        ntrial_cut=int(args.ntrial_cut)
         #skiplist=[]
         #if args.skiplist!=None:
         #        skiplist=args.skiplist.split(',')
@@ -181,14 +183,17 @@ if __name__== '__main__':
                 if auc_cut<0:
                         print "auc_cut is not set. Use default"
                         auc_cut=0.59
+        print "--testlist--"
+        print testlist
         rmlist=[]
-        for v in testlist:
+        for iv,v in enumerate(testlist):
+                print iv,v
                 print "======"
                 print "TEST->",v
                 skiplist=rmlist+[v]
-
+                
                 bmuon_sigcut,bmuon_bkgcut,belectron_sigcut,belectron_bkgcut,bjet_sigcut,bjet_bkgcut=GetCutConfig(version)
-
+                
                 dict_options={
                         "nlayer":nlayer,
                         "nnode":nnode,
@@ -209,13 +214,21 @@ if __name__== '__main__':
                         "belectron_sigcut":belectron_sigcut,
                         "belectron_bkgcut":belectron_bkgcut,
                         "bjet_sigcut":bjet_sigcut,
-                        "bjet_bkgcut":bjet_bkgcut
-                }
+                        "bjet_bkgcut":bjet_bkgcut,
 
-                this_auc=RunWithoutList(skiplist,dict_options)
-                print this_auc
-                SkipThis=this_auc>auc_cut
-                print "----"
+                }
+                ntrial=1
+                SkipThis=0
+                while ntrial < ntrial_cut:
+                        this_auc=RunWithoutList(skiplist,dict_options)
+                        print this_auc
+                        SkipThis=this_auc>auc_cut
+                        if SkipThis: ## not drop the AUC
+                                break
+                        else:
+                                print "this variable",v,"drops the AUC for Trial#==",ntrial
+                                ntrial+=1
+
                 if SkipThis:
                         print v,"does NOT drop AUC. we don't need it"
                         print "no ",v,"-->AUC=",this_auc
