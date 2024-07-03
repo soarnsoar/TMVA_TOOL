@@ -112,6 +112,7 @@ if __name__== '__main__':
                 test.SetCut_Sig(sigcut)
                 test.SetCut_Bkg(bkgcut)
         test.SetNlayer(nlayer)
+        test.SetNnode(nnode)
         test.SetDropout(dropout)
 
 

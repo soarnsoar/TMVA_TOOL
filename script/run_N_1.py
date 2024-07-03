@@ -21,62 +21,61 @@ def RunWithoutList(skiplist,dict_options):
         print "--SKIP FOLLOWING VARS"
         print skiplist
         ##--read options
-        nlayer=dict_options["nlayer"]
-        nnode=dict_options["nnode"]
-        nepoch=dict_options["nepoch"]
-        batchsize=dict_options["batchsize"]
-        dropout=dict_options["dropout"]
-        name=dict_options["name"]
-        version=dict_options["version"]
-        channel=dict_options["channel"]
-        analyzer=dict_options["analyzer"]
-        year=dict_options["year"]
-        transform=dict_options["transform"]
-        bmuon_var=dict_options["bmuon_var"]
-        belectron_var=dict_options["belectron_var"]
-        bjet_var=dict_options["bjet_var"]
-        bmuon_sigcut=dict_options["bmuon_sigcut"]
-        bmuon_bkgcut=dict_options["bmuon_bkgcut"]
-        belectron_sigcut=dict_options["belectron_sigcut"]
-        belectron_bkgcut=dict_options["belectron_bkgcut"]
-        bjet_sigcut=dict_options["bjet_sigcut"]
-        bjet_bkgcut=dict_options["bjet_bkgcut"]
+        _nlayer=dict_options["nlayer"]
+        _nnode=dict_options["nnode"]
+        _nepoch=dict_options["nepoch"]
+        _batchsize=dict_options["batchsize"]
+        _dropout=dict_options["dropout"]
+        _name=dict_options["name"]
+        _version=dict_options["version"]
+        _channel=dict_options["channel"]
+        _analyzer=dict_options["analyzer"]
+        _year=dict_options["year"]
+        _transform=dict_options["transform"]
+        _bmuon_var=dict_options["bmuon_var"]
+        _belectron_var=dict_options["belectron_var"]
+        _bjet_var=dict_options["bjet_var"]
+        _bmuon_sigcut=dict_options["bmuon_sigcut"]
+        _bmuon_bkgcut=dict_options["bmuon_bkgcut"]
+        _belectron_sigcut=dict_options["belectron_sigcut"]
+        _belectron_bkgcut=dict_options["belectron_bkgcut"]
+        _bjet_sigcut=dict_options["bjet_sigcut"]
+        _bjet_bkgcut=dict_options["bjet_bkgcut"]
 
         ##--[END]read options
 
 
-        variables=[]
+        _variables=[]
 
 
 
 
-        sigcut=""
-        bkgcut=""
-        if channel=="muon":
-                variables=bmuon_var+bjet_var
+        _sigcut=""
+        _bkgcut=""
+        if _channel=="muon":
+                _variables=_bmuon_var+_bjet_var
                 for v in skiplist:
-                        if v in variables:
-                                variables.remove(v)
-                sigcut=bmuon_sigcut
-                bkgcut=bmuon_bkgcut
+                        if v in _variables:
+                                _variables.remove(v)
+                _sigcut=_bmuon_sigcut
+                _bkgcut=_bmuon_bkgcut
                 
-        elif channel=="electron":
-                variables=belectron_var+bjet_var
+        elif _channel=="electron":
+                _variables=_belectron_var+_bjet_var
                 for v in skiplist:
-                        if v in variables:
-                                variables.remove(v)
-                sigcut=belectron_sigcut
-                bkgcut=belectron_bkgcut
-        elif channel=="jet":
-                variables=bjet_var
+                        if v in _variables:
+                                _variables.remove(v)
+                _sigcut=_belectron_sigcut
+                _bkgcut=_belectron_bkgcut
+        elif _channel=="jet":
+                _variables=_bjet_var
                 for v in skiplist:
-                        if v in variables:
-                                variables.remove(v)
-                sigcut=bjet_sigcut
-                bkgcut=bjet_bkgcut
+                        if v in _variables:
+                                _variables.remove(v)
+                _sigcut=_bjet_sigcut
+                _bkgcut=_bjet_bkgcut
         else:
-                print "[run_nnode_nlayer_nepoch_batchsize.py]Wrong channel input"
-                channel
+                print "[run_nnode_nlayer_nepoch_batchsize.py]Wrong _channel input",_channel
                 1/0
         print "sigcut->",sigcut
         print "bkgcut->",bkgcut
@@ -84,30 +83,31 @@ def RunWithoutList(skiplist,dict_options):
 
         from TMVA_DNN import TMVA_DNN_TOOL
         test=TMVA_DNN_TOOL()
-        test.SetFactoryName(name)
-        test.SetInputVariables(variables)
+        test.SetFactoryName(_name)
+        test.SetInputVariables(_variables)
         #test.SetSpectators(["bjet_partonFlavour","lhe_b_pdgid","bjet_partonFlavour*lhe_b_pdgid>0","bmuon_charge","belectron_charge","bjet_charge"])
         test.SetSpectators([])
         
-        test.SetCut_Sig(sigcut)
-        test.SetCut_Bkg(bkgcut)
-        test.SetNlayer(nlayer)
-        test.SetDropout(dropout)
+        test.SetCut_Sig(_sigcut)
+        test.SetCut_Bkg(_bkgcut)
+        test.SetNlayer(_nlayer)
+        test.SetNnode(_nnode)
+        test.SetDropout(_dropout)
 
 
 
-        test.SetTestTreeAndInput_Sig("OutTree/sig",[maindir+"/inputs/"+analyzer+"/v"+version+"/"+year+"/"+analyzer+"_DYJetsToEE_MiNNLO.root",maindir+"/inputs/"+analyzer+"/v"+version+"/"+year+"/"+analyzer+"_DYJetsToMuMu_MiNNLO.root"])
-        test.SetTrainTreeAndInput_Sig("OutTree/sig",[maindir+"/inputs/"+analyzer+"/v"+version+"/"+year+"/"+analyzer+"_DYJets.root"])
-        test.SetTestTreeAndInput_Bkg("OutTree/bkg",[maindir+"/inputs/"+analyzer+"/v"+version+"/"+year+"/"+analyzer+"_DYJetsToEE_MiNNLO.root",maindir+"/inputs/"+analyzer+"/v"+version+"/"+year+"/"+analyzer+"_DYJetsToMuMu_MiNNLO.root"])
+        test.SetTestTreeAndInput_Sig("OutTree/sig",[maindir+"/inputs/"+_analyzer+"/v"+_version+"/"+_year+"/"+_analyzer+"_DYJetsToEE_MiNNLO.root",maindir+"/inputs/"+_analyzer+"/v"+_version+"/"+_year+"/"+_analyzer+"_DYJetsToMuMu_MiNNLO.root"])
+        test.SetTrainTreeAndInput_Sig("OutTree/sig",[maindir+"/inputs/"+_analyzer+"/v"+_version+"/"+_year+"/"+_analyzer+"_DYJets.root"])
+        test.SetTestTreeAndInput_Bkg("OutTree/bkg",[maindir+"/inputs/"+_analyzer+"/v"+_version+"/"+_year+"/"+_analyzer+"_DYJetsToEE_MiNNLO.root",maindir+"/inputs/"+_analyzer+"/v"+_version+"/"+_year+"/"+_analyzer+"_DYJetsToMuMu_MiNNLO.root"])
                 
-        test.SetTrainTreeAndInput_Bkg("OutTree/bkg",[maindir+"/inputs/"+analyzer+"/v"+version+"/"+year+"/"+analyzer+"_DYJets.root"])
+        test.SetTrainTreeAndInput_Bkg("OutTree/bkg",[maindir+"/inputs/"+_analyzer+"/v"+_version+"/"+_year+"/"+_analyzer+"_DYJets.root"])
         #test.SetWeight_Sig("weight")
         #test.SetWeight_Bkg("weight")
         test.SetWeight_Sig("1.")
         test.SetWeight_Bkg("1.")
-        test.SetNepoch(nepoch)
-        test.SetBatchSize(batchsize)
-        test.SetTransform(transform)
+        test.SetNepoch(_nepoch)
+        test.SetBatchSize(_batchsize)
+        test.SetTransform(_transform)
         test.SetOutputName(name+".root")
         test.Run()
         _auc=test.GetAUC("DNN")
@@ -186,6 +186,8 @@ if __name__== '__main__':
         print "--testlist--"
         print testlist
         rmlist=[]
+        for iv,v in enumerate(testlist):
+                print iv,v
         for iv,v in enumerate(testlist):
                 print iv,v
                 print "======"
