@@ -85,9 +85,9 @@ if __name__== '__main__':
                 sigcut=belectron_sigcut
                 bkgcut=belectron_bkgcut
         elif channel=="jet":
-                        if VarToSkip in bjet_var  :
-                                for v in VarToSkip:
-                                        bjet_var.remove(v)
+                if VarToSkip in bjet_var  :
+                        for v in VarToSkip:
+                                bjet_var.remove(v)
 
                 variables=bjet_var
                 sigcut=bjet_sigcut

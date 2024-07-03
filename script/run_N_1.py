@@ -77,8 +77,8 @@ def RunWithoutList(skiplist,dict_options):
         else:
                 print "[run_nnode_nlayer_nepoch_batchsize.py]Wrong _channel input",_channel
                 1/0
-        print "sigcut->",sigcut
-        print "bkgcut->",bkgcut
+        print "sigcut->",_sigcut
+        print "bkgcut->",_bkgcut
 
 
         from TMVA_DNN import TMVA_DNN_TOOL
