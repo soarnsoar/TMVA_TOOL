@@ -70,7 +70,7 @@ def RunWithoutList(skiplist,dict_options):
                 _sigcut=_belectron_sigcut
                 _bkgcut=_belectron_bkgcut
         elif _channel=="jet":
-                _variables=_bjet_var+[] ##avoid ref.
+                _variables=_bjet_var+[] ##avoid being a ref/pointer
                 for v in skiplist:
                         if v in _variables:
                                 _variables.remove(v)
@@ -171,17 +171,30 @@ if __name__== '__main__':
 
 
         testlist=[]
+        rmlist=["bmuon_normchi2","bmuon_ntracklayers","bmuon_ntrackhits","bmuon_nmatchedstations","bmuon_nvalidmuonhits","bmuon_reliso","bmuon_aeta","bmuon_pt","bmuon_dR_l_j","belectron_full5x5sigmaietaieta","belectron_HoverE","belectron_aeta","belectron_pt","belectron_palongjet",] ##already determined to be removed from the input list
+
+        doneIn1st=["bmuon_normchi2","bmuon_ntracklayers","bmuon_ntrackhits","bmuon_nmatchedstations","bmuon_nvalidmuonhits","bmuon_nsip3d","bmuon_reltrkiso","bmuon_reliso","bmuon_aeta","bmuon_pt","bmuon_dR_l_j","bmuon_palongjet","bmuon_palongjetratio","bmuon_ptwrtbjet","bmuon_P_jetrest","bjet_charge*bmuon_charge","belectron_full5x5sigmaietaieta","fabs(belectron_detaseed)","belectron_HoverE","belectron_InvEminusInvP","belectron_nsip3d","belectron_reltrkiso","belectron_reliso","belectron_aeta","belectron_pt","belectron_dR_l_j","belectron_palongjet","belectron_palongjetratio","belectron_ptwrtbjet","belectron_P_jetrest","bjet_charge*belectron_charge"]
+
+
         auc_cut=float(args.auc_cut)
         if channel=="muon":
                 testlist=bmuon_var+bjet_var
                 if auc_cut<0:
                         print "auc_cut is not set. Use default"
                         auc_cut=0.75
+                ##rm things already checked
+                for v in doneIn1st:
+                        if v in testlist:
+                                testlist.remove(v)
         if channel=="electron":
                 testlist=belectron_var+bjet_var
                 if auc_cut<0:
                         print "auc_cut is not set. Use default"
                         auc_cut=0.72
+                ##rm things already checked
+                for v in doneIn1st:
+                        if v in testlist:
+                                testlist.remove(v)
         if channel=="jet":
                 testlist=bjet_var+[] ## to avoid being a pointer
                 if auc_cut<0:
@@ -189,7 +202,7 @@ if __name__== '__main__':
                         auc_cut=0.59
         print "--testlist--"
         print testlist
-        rmlist=[]
+
         for iv,v in enumerate(testlist):
                 print iv,v
         for iv,v in enumerate(testlist):
@@ -198,6 +211,10 @@ if __name__== '__main__':
                 print iv,v
                 print "======"
                 print "TEST->",v
+                print "=current rmlist="
+                print rmlist
+                print "=current bjet_var="
+                print bjet_var
                 skiplist=rmlist+[v]
                 
                 bmuon_sigcut,bmuon_bkgcut,belectron_sigcut,belectron_bkgcut,bjet_sigcut,bjet_bkgcut=GetCutConfig(version)

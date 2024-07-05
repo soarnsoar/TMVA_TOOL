@@ -89,7 +89,7 @@ if __name__== '__main__':
                         for v in VarToSkip:
                                 bjet_var.remove(v)
 
-                variables=bjet_var
+                variables=bjet_var+[]
                 sigcut=bjet_sigcut
                 bkgcut=bjet_bkgcut
         else:
