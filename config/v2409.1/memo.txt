@@ -1,0 +1,5 @@
+###---Goal of this version(v2409.1)
+
+1. Due to pt/eta dependence on the charge score, it gives large systematics by pt variation..
+
+2. rm pt/eta of all scores. Compare AUC with v2405.4.3

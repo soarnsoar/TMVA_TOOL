@@ -172,26 +172,59 @@ if __name__== '__main__':
 
         testlist=[]
         auc_cut=float(args.auc_cut)
+
+        if auc_cut<0:
+                print "----Get AUC Cut"
+                bmuon_sigcut,bmuon_bkgcut,belectron_sigcut,belectron_bkgcut,bjet_sigcut,bjet_bkgcut=GetCutConfig(version)
+                
+                dict_options={
+                        "nlayer":nlayer,
+                        "nnode":nnode,
+                        "nepoch":nepoch,
+                        "batchsize":batchsize,
+                        "dropout":dropout,
+                        "name":name,
+                        "version":version,
+                        "channel":channel,
+                        "analyzer":analyzer,
+                        "year":year,
+                        "transform":transform,
+                        "bmuon_var":bmuon_var,
+                        "belectron_var":belectron_var,
+                        "bjet_var":bjet_var,
+                        "bmuon_sigcut":bmuon_sigcut,
+                        "bmuon_bkgcut":bmuon_bkgcut,
+                        "belectron_sigcut":belectron_sigcut,
+                        "belectron_bkgcut":belectron_bkgcut,
+                        "bjet_sigcut":bjet_sigcut,
+                        "bjet_bkgcut":bjet_bkgcut,
+
+                }
+                skiplist=[]
+                this_auc=RunWithoutList(skiplist,dict_options)
+                print this_auc
+                print "Set the AUC cut->",this_auc
+                auc_cut=this_auc
+
+
+
+
         if channel=="muon":
                 testlist=bmuon_var+bjet_var
-                if auc_cut<0:
-                        print "auc_cut is not set. Use default"
-                        auc_cut=0.75
+
         if channel=="electron":
                 testlist=belectron_var+bjet_var
-                if auc_cut<0:
-                        print "auc_cut is not set. Use default"
-                        auc_cut=0.72
+
         if channel=="jet":
                 testlist=bjet_var+[] ## to avoid being a pointer
-                if auc_cut<0:
-                        print "auc_cut is not set. Use default"
-                        auc_cut=0.59
+
         print "--testlist--"
         print testlist
         rmlist=[]
         for iv,v in enumerate(testlist):
                 print iv,v
+
+
         for iv,v in enumerate(testlist):
                 print "-->>Check testlist"
                 print testlist

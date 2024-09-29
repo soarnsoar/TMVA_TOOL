@@ -10,6 +10,8 @@ from keras.optimizers import SGD, Adam, Nadam
 import ROOT
 import os
 
+
+
 class TMVA_DNN_TOOL:
     def __init__(self):
         self.dict_tree={}
@@ -225,6 +227,12 @@ class TMVA_DNN_TOOL:
         self.mykeras.compile(loss=self.lossftn,optimizer=self.optimizer,metrics=self.metrics)
         self.mykeras.save(self.outmodelname)
         self.mykeras.summary()
+    def __del__(self):
+        del self.dict_tree
+        del self.mykeras
+        del self.dataloader
+        del self.factory
+        del self.fout
 
 if __name__ == '__main__':
     name="mytest"

@@ -45,15 +45,27 @@ class ReadResult:
 if __name__ == '__main__':
     #test=ReadResult("/data6/Users/jhchoi/TMVA/TMVA_TOOL/ws/WORKDIR",1.0,"muon",10,256,3000,0.5)
     ##--1st
-    #    nlayers=[5,10,20,40,80]
+    #nlayers=[5,10,20,40,80]
     #nlayers=[5,10,20]
     #nnodes=[64,128,256]#[64,128,256]
     #batchsizes=[100,1000,3000]
     #dropouts=[0.2,0.5]
     
     ana="EEMu_MuMuE_Method"
-    year=2017
+    year="2016preVFP"
     if len(sys.argv)>1 : year=sys.argv[1]
+
+    ##---1st
+
+
+
+
+
+    channels=["muon","electron","jet"]
+    switches=[False]
+    useLOs=[False]
+
+
     nlayers=[5,10,20]
     nnodes=[64,128,256]
     batchsizes=[100,500,1000]
@@ -61,10 +73,14 @@ if __name__ == '__main__':
 
     nepoch=300
     #versions=[1.0,1.01,1.02,1.03]
-    versions=["2405.4","2405.4_jc"]
+    #versions=["2405.4","2405.4_jc"]
+    ##2409.1
+    versions=["2409.1"]
     channels=["muon","electron","jet"]
+    #channels=["muon","electron"]
     transforms=["I","G","U","P","N"]
-    useLOs=[True, False]
+    #useLOs=[True, False]
+    useLOs=[False]
 
     #isSwitch=True
     isSwitch=False
