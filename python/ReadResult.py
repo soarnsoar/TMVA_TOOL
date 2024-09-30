@@ -61,7 +61,8 @@ if __name__ == '__main__':
 
 
 
-    channels=["muon","electron","jet"]
+    #channels=["muon","electron","jet"]
+    #channels=["jet"]
     switches=[False]
     useLOs=[False]
 
@@ -75,8 +76,9 @@ if __name__ == '__main__':
     #versions=[1.0,1.01,1.02,1.03]
     #versions=["2405.4","2405.4_jc"]
     ##2409.1
-    versions=["2409.1"]
-    channels=["muon","electron","jet"]
+    versions=["2409.2"]
+    #channels=["muon","electron","jet"]
+    channels=["jet"]
     #channels=["muon","electron"]
     transforms=["I","G","U","P","N"]
     #useLOs=[True, False]
@@ -99,6 +101,7 @@ if __name__ == '__main__':
     for channel in channels:
         best_roc=0.
         best_params=[0,0,0,0,0,""]
+        list_best_params=[]
         if isSwitch: channel+="__switch_sig_bkg"
         for useLO in useLOs:
             suffixLO=""
@@ -111,17 +114,21 @@ if __name__ == '__main__':
                         for batchsize in batchsizes:
                             for dropout in dropouts:
                                 for transform in transforms:
-                                    test=ReadResult("/data6/Users/jhchoi/TMVA/TMVA_TOOL/ws/WORKDIR"+suffixLO,version,ana,year,channel,nlayer,nnode,batchsize,dropout,"Trf_"+transform.replace(",",""))
+                                    #test=ReadResult("/data6/Users/jhchoi/TMVA/TMVA_TOOL/ws/WORKDIR"+suffixLO,version,ana,year,channel,nlayer,nnode,batchsize,dropout,"Trf_"+transform.replace(",",""))
+                                    test=ReadResult("/u/user/jhchoi/scratch/v2409.2/WORKDIR"+suffixLO,version,ana,year,channel,nlayer,nnode,batchsize,dropout,"Trf_"+transform.replace(",",""))
                                     if test.roc == "" or test.roc==None:continue
 
                                     if float(test.roc) > best_roc:
                                         best_roc=test.roc
                                         best_params=[version,nlayer,nnode,batchsize,dropout,transform]
-
+                                        list_best_params=[]
+                                    if float(test.roc) == best_roc:
+                                        list_best_params.append([version,nlayer,nnode,batchsize,dropout,transform])
         ##--after find best case
         print "[year]",year
         print "--Best for ", channel,"--"
         print "roc=",best_roc
         print "version,nlayer,nnode,batchsize,dropout,transform"
         print best_params
-                            
+        for best in list_best_params:
+            print best
