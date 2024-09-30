@@ -42,6 +42,23 @@ class ReadResult:
             self.roc=0.
         else:
             self.roc=float(ret)
+        
+        ###eff/overtraining
+        readnextnext=False
+        readnext=False
+        for line in lines:
+            if "Name:                Method:          @B=0.01             @B=0.10            @B=0.30" in line:
+                readnextnext=True
+                continue
+            if readnextnext:
+                readnextnext=False
+                readnext=True
+                continue
+            if readnext:
+                #print line.split(":")
+                ret=line.split(":")[2]
+                self.effs=ret.split("\n")[0]
+                break
 if __name__ == '__main__':
     #test=ReadResult("/data6/Users/jhchoi/TMVA/TMVA_TOOL/ws/WORKDIR",1.0,"muon",10,256,3000,0.5)
     ##--1st
@@ -52,7 +69,7 @@ if __name__ == '__main__':
     #dropouts=[0.2,0.5]
     
     ana="EEMu_MuMuE_Method"
-    year="2016preVFP"
+    year="2018"
     if len(sys.argv)>1 : year=sys.argv[1]
 
     ##---1st
@@ -103,6 +120,8 @@ if __name__ == '__main__':
         best_params=[0,0,0,0,0,""]
         list_best_params=[]
         list_best_roc=[]
+        list_best_effs=[]
+
         if isSwitch: channel+="__switch_sig_bkg"
         for useLO in useLOs:
             suffixLO=""
@@ -124,9 +143,11 @@ if __name__ == '__main__':
                                         best_params=[version,nlayer,nnode,batchsize,dropout,transform]
                                         list_best_params=[]
                                         list_best_roc=[]
+                                        list_best_effs=[]
                                     if float(test.roc) == best_roc:
                                         list_best_params.append([version,nlayer,nnode,batchsize,dropout,transform])
                                         list_best_roc.append(test.roc)
+                                        list_best_effs.append(test.effs)
         ##--after find best case
         print "[year]",year
         print "--Best for ", channel,"--"
@@ -135,3 +156,5 @@ if __name__ == '__main__':
         print best_params
         for i,best in enumerate(list_best_params):
             print best,list_best_roc[i]
+        for effs in list_best_effs:
+            print effs
