@@ -41,7 +41,7 @@ channels={
 nepoch=300
 
 submit=1
-istart=100
+istart=0
 Ntotal=100
 iend=istart+Ntotal
 for year in years:
