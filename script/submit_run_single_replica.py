@@ -45,7 +45,7 @@ istart=100
 Ntotal=100
 iend=istart+Ntotal
 for year in years:
-    for channel in channels:
+    for channel in channels[year]:
         for i in range(istart,iend):
             this_params=channels[year][channel]
             nlayer=this_params[0]
