@@ -102,6 +102,7 @@ if __name__ == '__main__':
         best_roc=0.
         best_params=[0,0,0,0,0,""]
         list_best_params=[]
+        list_best_roc=[]
         if isSwitch: channel+="__switch_sig_bkg"
         for useLO in useLOs:
             suffixLO=""
@@ -122,13 +123,15 @@ if __name__ == '__main__':
                                         best_roc=test.roc
                                         best_params=[version,nlayer,nnode,batchsize,dropout,transform]
                                         list_best_params=[]
+                                        list_best_roc=[]
                                     if float(test.roc) == best_roc:
                                         list_best_params.append([version,nlayer,nnode,batchsize,dropout,transform])
+                                        list_best_roc.append(test.roc)
         ##--after find best case
         print "[year]",year
         print "--Best for ", channel,"--"
         print "roc=",best_roc
         print "version,nlayer,nnode,batchsize,dropout,transform"
         print best_params
-        for best in list_best_params:
-            print best
+        for i,best in enumerate(list_best_params):
+            print best,list_best_roc[i]
