@@ -76,27 +76,27 @@ if __name__ == '__main__':
     channels={
         
         "2016preVFP":{
-            #"muon":[5, 64, 100, 0.2, 'U'],
-            #"electron":[5, 256, 1000, 0.4, 'G'],
-            "jet":[5, 64, 1000, 0.2, 'N'],
+            "muon":[5, 64, 100, 0.2, 'U'],
+            "electron":[5, 256, 1000, 0.4, 'G'],
+            #"jet":[5, 64, 1000, 0.2, 'N'],
         },
         
         "2016postVFP":{
-            #"muon":[5, 128, 1000, 0.4, 'U'],
-            #"electron":[5, 128, 1000, 0.4, 'G'],
-            "jet":[10, 256, 1000, 0.2, 'N'],
+            "muon":[5, 128, 1000, 0.4, 'U'],
+            "electron":[5, 128, 1000, 0.4, 'G'],
+            #"jet":[10, 256, 1000, 0.2, 'N'],
         },
         
         "2017":{
-            #"muon":[10, 64, 1000, 0.2, 'G'],
-            #"electron":[5, 64, 1000, 0.2, 'G'],
-            "jet":[10, 128, 100, 0.2, 'N'],
+            "muon":[10, 64, 1000, 0.2, 'G'],
+            "electron":[5, 64, 1000, 0.2, 'G'],
+            #"jet":[10, 128, 100, 0.2, 'N'],
         },
         
         "2018":{
-            #"muon":[10, 256, 500, 0.4, 'G'],
-            #"electron":[20, 256, 100, 0.2, 'G'],
-            "jet":[5, 256, 1000, 0.2, 'N'],
+            "muon":[10, 256, 500, 0.4, 'G'],
+            "electron":[20, 256, 100, 0.2, 'G'],
+            #"jet":[5, 256, 1000, 0.2, 'N'],
         },
 
     }
@@ -127,8 +127,8 @@ if __name__ == '__main__':
         list_best_effs=[]
         lit_best_i=[]
         for i in range(istart,iend):
-            #test=ReadResult("/data6/Users/jhchoi/TMVA/TMVA_TOOL/ws/WORKDIR_ntrial",version,ana,year,channel,nlayer,nnode,batchsize,dropout,"Trf_"+transform.replace(",",""),i)
-            test=ReadResult("/u/user/jhchoi/scratch/v2409.2/WORKDIR_ntrial",version,ana,year,channel,nlayer,nnode,batchsize,dropout,"Trf_"+transform.replace(",",""),i)
+            test=ReadResult("/data6/Users/jhchoi/TMVA/TMVA_TOOL/ws/WORKDIR_ntrial",version,ana,year,channel,nlayer,nnode,batchsize,dropout,"Trf_"+transform.replace(",",""),i)
+            #test=ReadResult("/u/user/jhchoi/scratch/v2409.2/WORKDIR_ntrial",version,ana,year,channel,nlayer,nnode,batchsize,dropout,"Trf_"+transform.replace(",",""),i)
             if test.roc == "" or test.roc==None:continue
             #xprint test.roc
             if float(test.roc) > best_roc:
@@ -158,9 +158,9 @@ if __name__ == '__main__':
         print "i=",best_i
 
         for i,best in enumerate(list_best_params):
-            print i,best,list_best_roc[i]
+            print list_best_i[i],best,list_best_roc[i]
         for i,effs in enumerate(list_best_effs):
-            print i,effs
+            print list_best_i[i],effs
         
 
 
