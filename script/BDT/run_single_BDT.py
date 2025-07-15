@@ -21,10 +21,11 @@ if __name__== '__main__':
         parser = argparse.ArgumentParser(description='input argument')
         
         parser.add_argument('--name', dest='name', default="BDT", help="name")
-        parser.add_argument('--version', dest='version', default="2409.2", help="version")    
+        parser.add_argument('--version', dest='version', default="2409.2", help="version")
+        parser.add_argument('--year', dest='year', default="2017", help="year")        
         parser.add_argument('--channel', dest='channel', default="muon", help="muon/electron/jet")    
 
-        parser.add_argument('--year', dest='year', default="2017", help="year")        
+
         parser.add_argument('--analyzer', dest='analyzer', default="EEMu_MuMuE_Method", help="analyzer")        
 
         parser.add_argument('--transform', dest='transform', default="G", help="transform")        
@@ -39,7 +40,7 @@ if __name__== '__main__':
         parser.add_argument('--MinNodeSize', dest='MinNodeSize', default="5", help="MinNodeSize")
         parser.add_argument('--BoostType', dest='BoostType', default="AdaBoost", help="BoostType")
         parser.add_argument('--AdaBoostBeta', dest='AdaBoostBeta', default="0.5", help="AdaBoostBeta(Only For AdaBoost BoostType)")
-        parser.add_argument('--UseBaggedBoost', dest='UseBaggedBoost', default="False", help="UseBaggedBoost")
+        parser.add_argument('--UseBaggedBoost', dest='UseBaggedBoost', default="False", help="UseBaggedBoost(Random Sampling for avoiding overfit")
         parser.add_argument('--BaggedSampleFraction', dest='BaggedSampleFraction', default="0.6", help="BaggedSampleFraction(Only For UseBaggedBoost)")
         parser.add_argument('--SeparationType', dest='SeparationType', default="GiniIndex", help="SeparationType")
         parser.add_argument('--nCuts', dest='nCuts', default="20", help="nCuts")
