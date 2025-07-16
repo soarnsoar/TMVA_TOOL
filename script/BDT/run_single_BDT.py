@@ -5,46 +5,47 @@ maindir=os.getenv("JH_TMVA_TOOL_MAINDIR")
 import sys
 def GetVariableConfig(version):
         version=str(version)
-        sys.path.append(maindir+"/config/v"+version)
-        print(maindir+"/config/v"+version)
+        sys.path.append(maindir+"/config/ForBDT/v"+version)
         import variables as _variables
         #exec(open(maindir+"/config/v"+version+"/variables.py"))
+        print(_variables.bmuon_var,_variables.belectron_var,_variables.bjet_var)
         return _variables.bmuon_var,_variables.belectron_var,_variables.bjet_var
 def GetCutConfig(version):
         version=str(version)
         #exec(open(maindir+"/config/v"+version+"/cuts.py"))
-        sys.path.append(maindir+"/config/v"+version)
+        sys.path.append(maindir+"/config/ForBDT/v"+version)
         import cuts as _cuts
+        print(_cuts.bmuon_sigcut, _cuts.bmuon_bkgcut, _cuts.belectron_sigcut, _cuts.belectron_bkgcut, _cuts.bjet_sigcut, _cuts.bjet_bkgcut)
         return _cuts.bmuon_sigcut, _cuts.bmuon_bkgcut, _cuts.belectron_sigcut, _cuts.belectron_bkgcut, _cuts.bjet_sigcut, _cuts.bjet_bkgcut
 if __name__== '__main__':
         import argparse
         parser = argparse.ArgumentParser(description='input argument')
         
-        parser.add_argument('--name', dest='name', default="BDT", help="name")
-        parser.add_argument('--version', dest='version', default="2409.2", help="version")
-        parser.add_argument('--year', dest='year', default="2017", help="year")        
-        parser.add_argument('--channel', dest='channel', default="muon", help="muon/electron/jet")    
+        parser.add_argument('--name', dest='name', default="", help="name")
+        parser.add_argument('--version', dest='version', default="", help="version")
+        parser.add_argument('--year', dest='year', default="", help="year")        
+        parser.add_argument('--channel', dest='channel', default="", help="muon/electron/jet")    
 
 
-        parser.add_argument('--analyzer', dest='analyzer', default="EEMu_MuMuE_Method", help="analyzer")        
+        parser.add_argument('--analyzer', dest='analyzer', default="", help="analyzer")        
 
-        parser.add_argument('--transform', dest='transform', default="G", help="transform")        
+        parser.add_argument('--transform', dest='transform', default="", help="transform")        
 
         parser.add_argument('--VarToSkip', dest='VarToSkip', default="", help="Don't use this variable for the training")
 
 
         #####BDT Vars ####
-        parser.add_argument('--NTrees', dest='NTrees', default="800", help="NTrees")
-        parser.add_argument('--MaxDepth', dest='MaxDepth', default="3", help="MaxDepth")
-        parser.add_argument('--Shrinkage', dest='Shrinkage', default="1", help="Shrinkage(Only For GradBoost algo)")
-        parser.add_argument('--MinNodeSize', dest='MinNodeSize', default="5", help="MinNodeSize")
-        parser.add_argument('--BoostType', dest='BoostType', default="AdaBoost", help="BoostType")
-        parser.add_argument('--AdaBoostBeta', dest='AdaBoostBeta', default="0.5", help="AdaBoostBeta(Only For AdaBoost BoostType)")
-        parser.add_argument('--UseBaggedBoost', dest='UseBaggedBoost', default="False", help="UseBaggedBoost(Random Sampling for avoiding overfit")
-        parser.add_argument('--BaggedSampleFraction', dest='BaggedSampleFraction', default="0.6", help="BaggedSampleFraction(Only For UseBaggedBoost)")
-        parser.add_argument('--SeparationType', dest='SeparationType', default="GiniIndex", help="SeparationType")
-        parser.add_argument('--nCuts', dest='nCuts', default="20", help="nCuts")
-        parser.add_argument('--IgnoreNegWeightsInTraining', dest='IgnoreNegWeightsInTraining', default="False", help="IgnoreNegWeightsInTraining")
+        parser.add_argument('--NTrees', dest='NTrees', default="", help="NTrees")
+        parser.add_argument('--MaxDepth', dest='MaxDepth', default="", help="MaxDepth")
+        parser.add_argument('--Shrinkage', dest='Shrinkage', default="", help="Shrinkage(Only For GradBoost algo)")
+        parser.add_argument('--MinNodeSize', dest='MinNodeSize', default="", help="MinNodeSize")
+        parser.add_argument('--BoostType', dest='BoostType', default="", help="BoostType")
+        parser.add_argument('--AdaBoostBeta', dest='AdaBoostBeta', default="", help="AdaBoostBeta(Only For AdaBoost BoostType)")
+        parser.add_argument('--UseBaggedBoost', dest='UseBaggedBoost', default="", help="UseBaggedBoost(Random Sampling for avoiding overfit")
+        parser.add_argument('--BaggedSampleFraction', dest='BaggedSampleFraction', default="", help="BaggedSampleFraction(Only For UseBaggedBoost)")
+        parser.add_argument('--SeparationType', dest='SeparationType', default="", help="SeparationType")
+        parser.add_argument('--nCuts', dest='nCuts', default="", help="nCuts")
+        parser.add_argument('--IgnoreNegWeightsInTraining', dest='IgnoreNegWeightsInTraining', default="", help="IgnoreNegWeightsInTraining")
 
         #################
 
@@ -112,19 +113,21 @@ if __name__== '__main__':
 
 
 
-        from TMVA_BDT import TMVA_TOOL
+        from TMVA_BDT_single import TMVA_TOOL
         test=TMVA_TOOL()
         test.SetFactoryName(name)
         test.SetInputVariables(variables)
         test.SetSpectators(["bjet_partonFlavour","lhe_b_pdgid","bjet_partonFlavour*lhe_b_pdgid>0","bmuon_charge","belectron_charge","bjet_charge"])
-        
+        print('sigcut=',sigcut)
+        print('bkgcut=',bkgcut)
         test.SetCut_Sig(sigcut)
         test.SetCut_Bkg(bkgcut)
         
         ##---BDT Params---##
         test.SetNTrees(args.NTrees)
-        test.SetMinNodeSize(args.MinNodeSize)
         test.SetMaxDepth(args.MaxDepth)
+        test.SetShrinkage(args.Shrinkage)
+        test.SetMinNodeSize(args.MinNodeSize)
         test.SetBoostType(args.BoostType)
         test.SetAdaBoostBeta(args.AdaBoostBeta)
         test.SetUseBaggedBoost(args.UseBaggedBoost)

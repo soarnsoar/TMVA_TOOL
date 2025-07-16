@@ -1,27 +1,34 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 ##-----
 import os
 maindir=os.getenv("JH_TMVA_TOOL_MAINDIR")
+import sys
 def GetVariableConfig(version):
         version=str(version)
-	exec(open(maindir+"/config/v"+version+"/variables.py"))
-        return bmuon_var,belectron_var,bjet_var
+        sys.path.append(maindir+"/config/v"+version)
+        print(maindir+"/config/ForBDT/v"+version)
+        import variables as _variables
+        #exec(open(maindir+"/config/v"+version+"/variables.py"))
+        return _variables.bmuon_var,_variables.belectron_var,_variables.bjet_var
 def GetCutConfig(version):
         version=str(version)
-	exec(open(maindir+"/config/v"+version+"/cuts.py"))
-        return bmuon_sigcut,bmuon_bkgcut,belectron_sigcut,belectron_bkgcut,bjet_sigcut,bjet_bkgcut
+        #exec(open(maindir+"/config/v"+version+"/cuts.py"))
+        sys.path.append(maindir+"/config/ForBDT/v"+version)
+        import cuts as _cuts
+        return _cuts.bmuon_sigcut, _cuts.bmuon_bkgcut, _cuts.belectron_sigcut, _cuts.belectron_bkgcut, _cuts.bjet_sigcut, _cuts.bjet_bkgcut
 if __name__== '__main__':
         import argparse
         parser = argparse.ArgumentParser(description='input argument')
+        
+        parser.add_argument('--name', dest='name', default="BDT", help="name")
+        parser.add_argument('--version', dest='version', default="2409.2", help="version")
+        parser.add_argument('--year', dest='year', default="2017", help="year")        
+        parser.add_argument('--channel', dest='channel', default="muon", help="muon/electron/jet")    
 
-        parser.add_argument('--name', dest='name', default="dnn", help="name")
-        parser.add_argument('--version', dest='version', default="", help="version")    
-        parser.add_argument('--channel', dest='channel', default="-", help="muon/electron/jet")    
 
-        parser.add_argument('--year', dest='year', default="", help="year")        
-        parser.add_argument('--analyzer', dest='analyzer', default="", help="year")        
+        parser.add_argument('--analyzer', dest='analyzer', default="EEMu_MuMuE_Method", help="analyzer")        
 
-        parser.add_argument('--transform', dest='transform', default="I", help="transform")        
+        parser.add_argument('--transform', dest='transform', default="G", help="transform")        
 
         parser.add_argument('--VarToSkip', dest='VarToSkip', default="", help="Don't use this variable for the training")
 
@@ -33,7 +40,7 @@ if __name__== '__main__':
         parser.add_argument('--MinNodeSize', dest='MinNodeSize', default="5", help="MinNodeSize")
         parser.add_argument('--BoostType', dest='BoostType', default="AdaBoost", help="BoostType")
         parser.add_argument('--AdaBoostBeta', dest='AdaBoostBeta', default="0.5", help="AdaBoostBeta(Only For AdaBoost BoostType)")
-        parser.add_argument('--UseBaggedBoost', dest='UseBaggedBoost', default="False", help="UseBaggedBoost")
+        parser.add_argument('--UseBaggedBoost', dest='UseBaggedBoost', default="False", help="UseBaggedBoost(Random Sampling for avoiding overfit")
         parser.add_argument('--BaggedSampleFraction', dest='BaggedSampleFraction', default="0.6", help="BaggedSampleFraction(Only For UseBaggedBoost)")
         parser.add_argument('--SeparationType', dest='SeparationType', default="GiniIndex", help="SeparationType")
         parser.add_argument('--nCuts', dest='nCuts', default="20", help="nCuts")
@@ -53,6 +60,8 @@ if __name__== '__main__':
         year=args.year
 
         transform=args.transform
+
+
 
 
         VarToSkip=args.VarToSkip.split()
@@ -97,7 +106,7 @@ if __name__== '__main__':
                 sigcut=bjet_sigcut
                 bkgcut=bjet_bkgcut
         else:
-                print "[run_nnode_nlayer_nepoch_batchsize.py]Wrong channel input"
+                print("[run_nnode_nlayer_nepoch_batchsize.py]Wrong channel input")
                 channel
                 1/0
 
@@ -112,10 +121,31 @@ if __name__== '__main__':
         test.SetCut_Sig(sigcut)
         test.SetCut_Bkg(bkgcut)
         
-
-
-
-
+        ##---BDT Params---##
+        for NTrees in args.NTrees.split(","):
+                test.SetNTrees(NTrees)
+                for MinNodeSize in args.MinNodeSize.split(','):
+                        test.SetMinNodeSize(MinNodeSize)
+                        for MaxDepth in args.MaxDepth.split(','):
+                                test.SetMaxDepth(MaxDepth)
+                                for BoostType in args.BoostType.split(','):
+                                        test.SetBoostType(BoostType)
+                                        for AdaBoostBeta in args.AdaBoostBeta.split(','):                                                
+                                                test.SetAdaBoostBeta(AdaBoostBeta)
+                                                for UseBaggedBoost in args.UseBaggedBoost.split(','):
+                                                        test.SetUseBaggedBoost(UseBaggedBoost)
+                                                        for BaggedSampleFraction in args.BaggedSampleFraction.split(','):
+                                                                for BaggedSampleFraction in args.BaggedSampleFraction.split(','):
+                                                                        test.SetBaggedSampleFraction(BaggedSampleFraction)
+                                                                        for SeparationType in args.SeparationType.split(','):
+                                                                                test.SetSeparationType(SeparationType)
+                                                                                for nCuts in args.nCuts.split(','):
+                                                                                        test.SetnCuts(nCuts)
+                                                                                        for IgnoreNegWeightsInTraining in args.IgnoreNegWeightsInTraining.split(','):
+                                                                                                test.SetIgnoreNegWeightsInTraining(IgnoreNegWeightsInTraining)
+                                                                                                
+                                                                                                test.AddBDTMethod()
+        
         test.SetTestTreeAndInput_Sig("OutTree/sig",[maindir+"/inputs/"+analyzer+"/v"+version+"/"+year+"/"+analyzer+"_DYJetsToEE_MiNNLO.root",maindir+"/inputs/"+analyzer+"/v"+version+"/"+year+"/"+analyzer+"_DYJetsToMuMu_MiNNLO.root"])
 
         test.SetTrainTreeAndInput_Sig("OutTree/sig",[maindir+"/inputs/"+analyzer+"/v"+version+"/"+year+"/"+analyzer+"_DYJets.root"])
@@ -129,3 +159,4 @@ if __name__== '__main__':
         test.SetTransform(transform)
         test.SetOutputName(name+".root")
         test.Run()
+        print("END of RUNNING...run_single")
