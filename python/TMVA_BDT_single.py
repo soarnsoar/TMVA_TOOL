@@ -19,10 +19,30 @@ class TMVA_TOOL:
                   ])
         )
 
-       
+        self.AddMethod(    {
+            'type' : ROOT.TMVA.Types.kBDT,
+            'name' : "BDT",
+            'options' : ":".join([
+                "!H",
+                "V",
+                "NTrees=__NTrees__",
+                "MinNodeSize=__MinNodeSize__%",
+                "MaxDepth=__MaxDepth__",
+                "Shrinkage=__Shrinkage__",
+                "BoostType=__BoostType__",
+                "AdaBoostBeta=__AdaBoostBeta__",
+                "UseBaggedBoost=__UseBaggedBoost__",
+                "BaggedSampleFraction=__BaggedSampleFraction__",
+                "SeparationType=__SeparationType__",
+                "nCuts=__nCuts__",
+                "IgnoreNegWeightsInTraining=__IgnoreNegWeightsInTraining__",
+                "VarTransform=__VarTransform__",
+            ])
+            
+        }
+                       )
         self.SetDataOption("!V")
         self.dict_AUC={}
-        
     def SetInputVariables(self,_variables):
         self.variables=_variables
         self.input_dim=len(self.variables)
@@ -84,43 +104,8 @@ class TMVA_TOOL:
     def SetIgnoreNegWeightsInTraining(self,IgnoreNegWeightsInTraining):
         self.IgnoreNegWeightsInTraining=IgnoreNegWeightsInTraining
     ###---[END] BDT Params
-    def MakeBDTMethod(self):
-        this_method=    {
-            'type' : ROOT.TMVA.Types.kBDT,
-            'name' : "BDT"+str(len(self.methodlist)),
-            'options' : ":".join([
-                "!H",
-                "!V",
-                "NTrees=__NTrees__",
-                "MinNodeSize=__MinNodeSize__%",
-                "MaxDepth=__MaxDepth__",
-                "Shrinkage=__Shrinkage__",
-                "BoostType=__BoostType__",
-                "AdaBoostBeta=__AdaBoostBeta__",
-                "UseBaggedBoost=__UseBaggedBoost__",
-                "BaggedSampleFraction=__BaggedSampleFraction__",
-                "SeparationType=__SeparationType__",
-                "nCuts=__nCuts__",
-                "IgnoreNegWeightsInTraining=__IgnoreNegWeightsInTraining__",
-                "VarTransform=__VarTransform__",
-            ])
-            
-        }
-        this_method['options']=this_method['options'].replace("__NTrees__",str(self.NTrees))
-        this_method['options']=this_method['options'].replace("__MinNodeSize__",str(self.MinNodeSize))
-        this_method['options']=this_method['options'].replace("__MaxDepth__",str(self.MaxDepth))
-        this_method['options']=this_method['options'].replace("__Shrinkage__",str(self.Shrinkage))
-        this_method['options']=this_method['options'].replace("__BoostType__",str(self.BoostType))
-        this_method['options']=this_method['options'].replace("__AdaBoostBeta__",str(self.AdaBoostBeta))
-        this_method['options']=this_method['options'].replace("__UseBaggedBoost__",str(self.UseBaggedBoost))
-        this_method['options']=this_method['options'].replace("__BaggedSampleFraction__",str(self.BaggedSampleFraction))
-        this_method['options']=this_method['options'].replace("__SeparationType__",str(self.SeparationType))
-        this_method['options']=this_method['options'].replace("__nCuts__",str(self.nCuts))
-        this_method['options']=this_method['options'].replace("__IgnoreNegWeightsInTraining__",str(self.IgnoreNegWeightsInTraining))
-        this_method['options']=this_method['options'].replace("__VarTransform__",str(self.transform))
-        return this_method
-    def AddBDTMethod(self):
-        self.methodlist.append(self.MakeBDTMethod())
+    def AddMethod(self,_method):
+        self.methodlist.append(_method)
     def SetOutputName(self,outputname):
         self.outputname=outputname
     def Run(self):
@@ -129,23 +114,29 @@ class TMVA_TOOL:
         self.SetFactory()
         self.RunTrain()
     def RunTrain(self):
-        print("len(self.methodlist)=",len(self.methodlist))
+        #print("self.factory.TrainAllMethods")
         self.factory.TrainAllMethods()
+        #print("[END]self.factory.TrainAllMethods")
+        #print("self.factory.TestAllMethods")
         self.factory.TestAllMethods()
+        #print("[END]self.factory.TestAllMethods")
+        #print("self.factory.EvaluateAllMethods")
         self.factory.EvaluateAllMethods()
+        #print("[END]self.factory.EvaluateAllMethods")
+        #print("method ref cut and auc")
         for method in self.methodlist:
             _cut=self.factory.GetMethod(self.factoryname,method['name']).GetSignalReferenceCut()
             _auc=self.factory.GetROCIntegral(self.dataloader,method['name'])
-            print("ref.cut=",method['name'],_cut)
+            #print("ref.cut=",method['name'],_cut)
             print("auc=",_auc)
             self.dict_AUC[method['name']]=_auc
             #_sigeff=self.factory.GetMethod(self.factoryname,method['name']).GetEfficiency(_cut,"SigEff")
             #print "sig.eff=",_sigeff
             #_bkgeff=self.factory.GetMethod(self.factoryname,method['name']).GetEfficiency(_cut,"BkgEff")
             #print "bkg.eff=",_sigeff
-        print ("self.fout.Close")
+        #print ("self.fout.Close")
         self.fout.Close()
-        print ("[END]self.fout.Close")
+        #print ("[END]self.fout.Close")
     def GetAUC(self,_name):
         return self.dict_AUC[_name]
     def SetFactory(self):
@@ -171,14 +162,22 @@ class TMVA_TOOL:
         print("Set bkg cut ->",self.cut_bkg)
         self.dataloader.PrepareTrainingAndTestTree(ROOT.TCut(self.cut_sig),ROOT.TCut(self.cut_bkg),self.dataoption)
         for method in self.methodlist:
-            print(method['type'])
-            print(method['name'])
-            print(method['options'])
-        for method in self.methodlist:
-            print(method['type'])
-            print(method['name'])
-            print(method['options'])            
-            self.factory.BookMethod(self.dataloader, ROOT.TMVA.Types.kBDT, method['name'], method['options'])
+            method['options']=method['options'].replace("__NTrees__",str(self.NTrees))
+            method['options']=method['options'].replace("__MinNodeSize__",str(self.MinNodeSize))
+            method['options']=method['options'].replace("__MaxDepth__",str(self.MaxDepth))
+            method['options']=method['options'].replace("__Shrinkage__",str(self.Shrinkage))
+            method['options']=method['options'].replace("__BoostType__",str(self.BoostType))
+            method['options']=method['options'].replace("__AdaBoostBeta__",str(self.AdaBoostBeta))
+            method['options']=method['options'].replace("__UseBaggedBoost__",str(self.UseBaggedBoost))
+            method['options']=method['options'].replace("__BaggedSampleFraction__",str(self.BaggedSampleFraction))
+            method['options']=method['options'].replace("__SeparationType__",str(self.SeparationType))
+            method['options']=method['options'].replace("__nCuts__",str(self.nCuts))
+            method['options']=method['options'].replace("__IgnoreNegWeightsInTraining__",str(self.IgnoreNegWeightsInTraining))
+            method['options']=method['options'].replace("__VarTransform__",str(self.transform))            
+
+            #print(method['name'])
+            #print(method['options'])
+            self.factory.BookMethod(self.dataloader,ROOT.TMVA.Types.kBDT,method['name'],method['options'])
             
         
         
