@@ -1,0 +1,28 @@
+---rm unnecessary inputs
+remained inputs
+-->
+[Muon]
+bmuon_nsip3d
+bmuon_reltrkiso
+bmuon_palongjetratio
+bmuon_ptwrtbjet
+bmuon_P_jetrest
+bjet_charge*bmuon_charge
+bjet_MuonEnergyFraction
+bjet_ChargedMultiplicity
+bjet_pt
+bjet_aeta
+
+[Electron]
+belectron_InvEminusInvP
+belectron_nsip3d
+belectron_reltrkiso
+belectron_palongjetratio
+belectron_ptwrtbjet
+belectron_P_jetrest
+bjet_charge*belectron_charge
+bjet_ChargedEmEnergyFraction
+bjet_MuonEnergyFraction
+bjet_pt
+bjet_aeta
+

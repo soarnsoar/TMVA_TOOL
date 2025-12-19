@@ -1,4 +1,8 @@
 import glob
+import sys
+sys.stdout.reconfigure(line_buffering=True)
+sys.stderr.reconfigure(line_buffering=True)
+
 def GetPerformance(outpath):
     f=open(outpath)
     lines=f.readlines()
@@ -44,7 +48,8 @@ def RunYear(obj,Year):
     year=Year
     #obj="electron"
     Trf="*"
-    overfit_threshold=0.5
+    #overfit_threshold=0.03
+    overfit_threshold=1. ## reldiff must be less than this value
     outlist=glob.glob("WORKDIR/2409.2/"+year+"/"+obj+"/"+Trf+"/*/*/NTrees__*/MaxDepth__*/MinNodeSize__*/UseBaggedBoost*/BaggedSampleFraction*/SeparationType__*/nCuts__*/IgnoreNegWeightsInTraining__*/run.out")
     print(len(outlist))
     maxauc=-1
@@ -93,11 +98,19 @@ def RunYear(obj,Year):
     print("nFail=",nFail)
     ##---Find Similar Performance
     print ("##---Similar Perf--##")
-    for out in all_outinfo:
-        this_auc=all_outinfo[out]['auc']
-        if (maxauc-this_auc)/maxauc < 0.01:
-            print(this_auc,out)
+    #for out in all_outinfo:
+    idx=0
+    for out in sorted(all_outinfo, key=lambda p: all_outinfo[p]['auc'], reverse=True):
+        idx+=1
+        this_auc=all_outinfo[out]['auc']        
+        print(this_auc,out)
+        if idx > 30 : break
 
 Run("muon")    
 Run("electron")
 Run("jet")
+#RunYear("muon","2016postVFP")
+#RunYear("muon","2018")
+#RunYear("muon","2016preVFP")
+#RunYear("jet","2016preVFP")
+#RunYear("jet","2016postVFP")    
