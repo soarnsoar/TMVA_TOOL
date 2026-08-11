@@ -6,6 +6,6 @@ submit_run_single_SCAN_BDT_MUON_16a.py  submit_run_single_SCAN_BDT_MUON_16b.py  
 )
 
 for script in ${ARR_SCRIPT[@]};do
-    ${script} &> logs/${script}.log &
+    ${script} &> logs/${script}.muononlysub.log &
     sleep 30
 done
