@@ -31,85 +31,28 @@ def MakeCommand(workdir,option,ToRemove):
 list_BoostType=["Grad","AdaBoost"]
 list_AdaBoostBeta=[ '0.3', '0.5' ,'0.7',] ## Only For AdaBoost
 list_Shrinkage=['1' ,'0.1', '0.05', '0.01'] ## Only For Grad
-#list_Shrinkage=['1' ,'0.1',"0.01"]
 
 list_NTrees=['500', '800', '1000']
-#list_NTrees=['500', '1000']
 list_MaxDepth=['2','3','4']
-#list_MaxDepth=['3']
 
 list_MinNodeSize=['2.5', '5', '10']
-#list_MinNodeSize=['5',]
 
-
-#list_UseBaggedBoost=['False']
 list_UseBaggedBoost=['True','False']
 list_BaggedSampleFraction=['0.4', '0.5', '0.6']
-#list_SeparationType=["GiniIndex","SDivSqrtSPlusB","CrossEntropy"]
 list_SeparationType=["GiniIndex","CrossEntropy"]
-
 list_nCuts=['10','20','30']
-#list_IgnoreNegWeightsInTraining=['True','False']
 list_IgnoreNegWeightsInTraining=['True']
 
-
-#transforms=["I","G","U","P","N"]
-#transforms=["N","G","U","P","I","D"]
 transforms=["I","G","U","N"]
-channels=["muon","electron","jet"]
-#channels=["electron","jet"]
+channels=["jet"]
+
 years=["2016preVFP"]
 analyzer="EEMu_MuMuE_Method"
-version="2409.2"
+version="2608.1"
 
 
 
-##--2nd
-##---v2 For e,mu 
-list_BoostType=['Grad'] ##Soley use Grad only
-channels=["muon","electron"]
 
-list_Shrinkage=['0.0001','0.001','0.003','0.005','0.007','0.01','0.05', '0.07','0.1','0.15','0.2']
-list_NTrees=['500', '600','700','800', '1200']+['200','300','400']
-list_MaxDepth=['4','5','6']+['7','8','9','10']
-list_BaggedSampleFraction=['0.2','0.3','0.4', '0.5', '0.6','0.7']+['0.1']
-list_MinNodeSize=['1.0','1.5','2.0','2.5','3.0']+['0.2','0.6']
-list_nCuts=['10','20','30','40']+['5']
-
-##----v2 For j
-list_BoostType=['Grad']
-channels=['jet']
-
-list_Shrinkage=['0.04', '0.06','0.08','0.12']+['0']
-list_NTrees=['500', '600','700','800']+['200','2000']
-list_MaxDepth=['4','5','6']+['2']
-list_BaggedSampleFraction=['0.4', '0.5', '0.6','0.7']+['0.9']
-list_MinNodeSize=['1.0','2.5']+['0.2']
-list_nCuts=['10','20','30']+['50']
-
-
-##---3rd for jet
-#{'Trf': 'I', 'BoostType': 'Grad', 'Shrinkage__AdaBoostBeta': '0.04', 'NTrees': '500', 'MaxDepth': '4', 'MinNodeSize': '1.0', 'UseBaggedBoost': 'True', 'BaggedSampleFraction': '0.6', 'SeparationType': 'GiniIndex', 'nCuts': '30', 'IgnoreNegWeightsInTraining': 'True', 'auc': 0.5986869347690438, 'sigeff_B0p3': [0.444, 0.451], 'sigeff_B0p1': [0.191, 0.198], 'sigeff_B0p01': [0.028, 0.031]}
-list_Shrinkage=['0.01','0.02','0.04','0.06']
-list_NTrees=['10','100','300','500']
-list_MaxDepth=['4']+['2','6']
-list_BaggedSampleFraction=['0.6']+['0.5','0.7']
-list_MinNodeSize=['0.01','0.1','0.5','1.0']
-list_nCuts=['30','40','50','100','200']
-
-
-##----
-#{'Trf': 'N', 'BoostType': 'Grad', 'Shrinkage__AdaBoostBeta': '0.04', 'NTrees': '300', 'MaxDepth': '4', 'MinNodeSize': '0.01', 'UseBaggedBoost': 'True', 'BaggedSampleFraction': '0.6', 'SeparationType': 'GiniIndex', 'nCuts': '40', 'IgnoreNegWeightsInTraining': 'True', 'auc': 0.5992834781615894, 'sigeff_B0p3': [0.445, 0.451], 'sigeff_B0p1': [0.192, 0.199], 'sigeff_B0p01': [0.029, 0.032]}
-
-
-list_Shrinkage=['0.1', '0.04', '0.01'] ## Only For Grad
-list_NTrees=['100','300','500']
-list_MaxDepth=['3','4','5']
-list_MinNodeSize=['0.001','0.01','2.5']
-list_UseBaggedBoost=['True','False']
-list_BaggedSampleFraction=['0.4', '0.6','0.8']
-list_SeparationType=["GiniIndex","CrossEntropy"]
-list_nCuts=['30','40','50']
 
 
 submit=1
@@ -120,7 +63,7 @@ dict_BoostType={
 }
 dict_UseBaggedBoost={
     "True":{"BaggedSampleFraction":list_BaggedSampleFraction},
-    "False":{"BaggedSampleFraction":["0"]}
+    "False":{"BaggedSampleFraction":["1"]}
     }
 
 

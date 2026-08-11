@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "/data9/Users/jhchoi/Generate_BDT_Model/TMVA_TOOL/script/BDT/submit_run_single_SCAN_BDT_MUON_16a.py", line 121, in <module>
+    Export(WORKDIR,command,"BDT_"+channel+"_"+str(version)+"_"+year,submit,1)
+  File "/data9/Users/jhchoi/Generate_BDT_Model/TMVA_TOOL/python/ExportShellCondorSetup_tamsa.py", line 80, in Export
+    lines.append('concurrency_limits = n'+str(nmax)+'.'+user)
+NameError: name 'user' is not defined

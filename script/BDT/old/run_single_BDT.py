@@ -97,7 +97,6 @@ if __name__== '__main__':
         test.SetFactoryName(name)
         test.SetInputVariables(variables)
         #test.SetSpectators(["bjet_partonFlavour","lhe_b_pdgid","bjet_partonFlavour*lhe_b_pdgid>0","bmuon_charge","belectron_charge","bjet_charge"])
-        test.SetSpectators([])
         print('sigcut=',sigcut)
         print('bkgcut=',bkgcut)
         test.SetCut_Sig(sigcut)
