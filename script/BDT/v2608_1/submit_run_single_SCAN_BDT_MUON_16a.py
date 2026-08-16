@@ -44,11 +44,11 @@ list_nCuts=['10','20','30']
 list_IgnoreNegWeightsInTraining=['True']
 
 transforms=["I","G","U","N"]
-channels=["jet"]
+channels=["muon"]
 
-years=["2018"]
+years=["2016preVFP"]
 analyzer="EEMu_MuMuE_Method"
-version="2608.2"
+version="2608.1"
 
 
 
@@ -118,7 +118,7 @@ for channel in channels:
                                                                 continue
                                                             
                                                             command=MakeCommand(WORKDIR,this_opt,"BDT_"+year+"*")
-                                                            Export(WORKDIR,command,"BDT_"+channel+"_"+str(version)+"_"+year,submit,1)
+                                                            Export(WORKDIR,command,"BDT_"+channel+"_"+str(version)+"_"+year,submit,1,False,3,1200)
 
                                                             i_submit+=1
 

@@ -48,7 +48,7 @@ channels=["muon"]
 
 years=["2016postVFP"]
 analyzer="EEMu_MuMuE_Method"
-version="2608.1"
+version="2608.2"
 
 
 
