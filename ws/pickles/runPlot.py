@@ -1,12 +1,35 @@
 import os
 import pickle
 import ROOT
-
+import glob
 ROOT.gROOT.SetBatch(True)
 def GetRelDiff(v1,v2):
     if v2 <= 0 : return 1
     return abs(1-v1/v2)
 # Trf,BoostType,Shrinkage__AdaBoostBeta,NTrees,MaxDepth,MinNodeSize,UseBaggedBoost,BaggedSampleFraction,SeparationType,nCuts,IgnoreNegWeightsInTraining
+
+dict_bound={
+    "Shrinkage__AdaBoostBeta":[0.005, 0.2],
+    "NTrees":[100, 2000],
+    "MaxDepth":[1,6],
+    "BaggedSampleFraction":[0.1,1.1],
+    "MinNodeSize":[0.1,15],
+    "nCuts":[5,50],
+}
+
+
+def IsWithinBoundary(_r):
+    ##r = result
+    for key in ["Shrinkage__AdaBoostBeta","NTrees","MaxDepth","MinNodeSize","BaggedSampleFraction","nCuts"]:
+        this_value=float(_r[key])
+        if key=="BaggedSampleFraction":
+            #print(this_value)
+            if this_value== 0. : return 1
+        if this_value < dict_bound[key][0] : return 0
+        if this_value > dict_bound[key][1] : return 0            
+    return 1
+
+
 class Plotter:
     def __init__(self,name,result,key1,key2):
         self.name=name
@@ -16,6 +39,15 @@ class Plotter:
         
         self.list_v1=self.CheckPossibleValue(key1)
         self.list_v2=self.CheckPossibleValue(key2)
+
+        self.dict_bound={
+            "Shrinkage__AdaBoostBeta":[0.005, 1],
+            "NTrees":[100, 2000],
+            "MaxDepth":[1,6],
+            "BaggedSampleFraction":[0.1,1],
+            "MinNodeSize":[0.1,5],
+            "nCuts":[5,50],
+        }
 
         #self.DrawGraph()
     def CheckPossibleValue(self,key):
@@ -27,20 +59,22 @@ class Plotter:
         newlist=sorted(newlist)
         return newlist              
     
-
+        
+        
     def GetBestAUCForGivenPair(self,value1,value2,overfit_threshold=0.1):
-        filtered = [r for r in self.result if float(r[self.key1])==value1 and float(r[self.key2])==value2 and GetRelDiff(r['sigeff_B0p3'][0],r['sigeff_B0p3'][1])<0.1 and GetRelDiff(r['sigeff_B0p1'][0],r['sigeff_B0p1'][1])<0.1 and GetRelDiff(r['sigeff_B0p01'][0],r['sigeff_B0p01'][1])<0.1]
+        filtered = [r for r in self.result if float(r[self.key1])==value1 and float(r[self.key2])==value2 and GetRelDiff(r['sigeff_B0p3'][0],r['sigeff_B0p3'][1])<0.1 and GetRelDiff(r['sigeff_B0p1'][0],r['sigeff_B0p1'][1])<0.1 and GetRelDiff(r['sigeff_B0p01'][0],r['sigeff_B0p01'][1])<0.2 and IsWithinBoundary(r)]
         if len(filtered) == 0 :return 0
         best = max(filtered, key=lambda r: r['auc'])
         return best['auc']
 
     def DrawGraph(self):
+        print("<DrawGraph>",self.key1,self.key2)
         best_auc=-1
         best_v1=-1
         best_v2=-1
         self.graph = ROOT.TGraph2D()
-        keyname1=key1.replace("__AdaBoostBeta","")
-        keyname2=key2.replace("__AdaBoostBeta","")
+        keyname1=self.key1.replace("__AdaBoostBeta","")
+        keyname2=self.key2.replace("__AdaBoostBeta","")
         self.graph.SetTitle(keyname1+":"+keyname2)
         k=0
         for v1 in self.list_v1:
@@ -58,7 +92,8 @@ class Plotter:
                     best_auc=this_auc
                     best_v1=v1
                     best_v2=v2
-        ##
+        print('Number of points in graph=',k)
+        if k <3 : self.graph.SetPoint(k,0,0,0)
         c=ROOT.TCanvas("","",800,600)
         self.graph.Draw("COLZ")
         ##---draw best auc point---##
@@ -82,7 +117,7 @@ class Plotter:
         print('best_auc=',best_auc)
 
 def GetBestPoint(result):
-    _filtered = [r for r in result if GetRelDiff(r['sigeff_B0p3'][0],r['sigeff_B0p3'][1])<0.1 and GetRelDiff(r['sigeff_B0p1'][0],r['sigeff_B0p1'][1])<0.1 and GetRelDiff(r['sigeff_B0p01'][0],r['sigeff_B0p01'][1])<0.1]
+    _filtered = [r for r in result if GetRelDiff(r['sigeff_B0p3'][0],r['sigeff_B0p3'][1])<0.1 and GetRelDiff(r['sigeff_B0p1'][0],r['sigeff_B0p1'][1])<0.1 and GetRelDiff(r['sigeff_B0p01'][0],r['sigeff_B0p01'][1])<0.2 and IsWithinBoundary(r)]
     if len(_filtered) == 0 :return 0
     best = max(_filtered, key=lambda r: r['auc'])
     print(best)        
@@ -121,13 +156,19 @@ LeptonKeyList={
 
 }
 LeptonKeyList={}
-path=obj+"__"+year+".pkl"
-#path='old/'+obj+"__"+year+".pkl"
-with open(path,"rb") as f:
-    result = pickle.load(f)
-    result = [r for r in result if r['BoostType'] == 'Grad']
 
-print('---',path,'----')    
+####
+search=obj+"__"+year+"*.pkl"
+pkls=glob.glob(search)
+result=[]
+for path in pkls:
+    #path='old/'+obj+"__"+year+".pkl"
+    with open(path,"rb") as f:
+        this_result = pickle.load(f)        
+        this_result = [r for r in this_result if r['BoostType'] == 'Grad']
+        result+=this_result
+    print('---',path,'----')
+print('nresult=',len(result))
 GetBestPoint(result)    
 #Shrinkage__AdaBoostBeta,NTrees,MaxDepth,MinNodeSize,UseBaggedBoost,BaggedSampleFraction,SeparationType,nCuts
 keylist=["Shrinkage__AdaBoostBeta","NTrees","MaxDepth","MinNodeSize","BaggedSampleFraction","nCuts"]
