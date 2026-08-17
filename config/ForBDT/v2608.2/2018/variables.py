@@ -26,7 +26,7 @@ belectron_var=[
     "belectron_palongjetratio > 0.15 ? 0.15 : belectron_palongjetratio",
     "belectron_ptwrtbjet > 3. ? 3. : belectron_ptwrtbjet",
     #"belectron_reliso < 1. ? 1. : belectron_reliso > 5. ? 5. : belectron_reliso",
-    "log10(1.+belectron_reliso) > 1.2 ? 1.2 : log10(1.+belectron_reliso)",
+    "log10(1.+belectron_reliso) > 1.2 ? 1.2 : log10(1.+belectron_reliso) < 0.3 ? 0.3 : log10(1.+belectron_reliso)",
 
     "bjet_ChargedEmEnergyFraction > 0.1 ? 0.1 : bjet_ChargedEmEnergyFraction",
     "bjet_ChargedHadronEnergyFraction < 0.5 ? 0.5 : bjet_ChargedHadronEnergyFraction",
