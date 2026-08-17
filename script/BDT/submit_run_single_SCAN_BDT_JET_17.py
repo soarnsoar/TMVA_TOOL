@@ -52,6 +52,17 @@ version="2608.2"
 
 
 
+###--step2                                                                                                                                                                                               
+
+list_BoostType=["Grad"]
+transforms=["I","G"]
+list_BaggedSampleFraction=['0.2', '0.6',]
+list_MaxDepth=['4','6','8']
+list_MinNodeSize=['0.5', '1', '2.5']
+list_NTrees=['100','300','500']
+list_Shrinkage=['0.1', '0.4', '0.8']
+list_nCuts=['30','40','50']
+list_SeparationType=["CrossEntropy"]
 
 
 

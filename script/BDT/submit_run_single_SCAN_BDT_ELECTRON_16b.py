@@ -50,6 +50,17 @@ years=["2016postVFP"]
 analyzer="EEMu_MuMuE_Method"
 version="2608.2"
 
+###--step2
+
+list_BoostType=["Grad"]
+transforms=["I","G"]
+list_BaggedSampleFraction=['0.4', '0.5', '0.6']
+list_MaxDepth=['3','5','7']
+list_MinNodeSize=['0.5', '1', '2.5']
+list_NTrees=['100','300','500']
+list_Shrinkage=['0.01', '0.005', '0.001']
+list_nCuts=['30','40','50']
+list_SeparationType=["CrossEntropy"]
 
 
 
