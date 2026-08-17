@@ -1,0 +1,183 @@
+import os
+import pickle
+import ROOT
+import glob
+ROOT.gROOT.SetBatch(True)
+def GetRelDiff(v1,v2):
+    if v2 <= 0 : return 1
+    return abs(1-v1/v2)
+# Trf,BoostType,Shrinkage__AdaBoostBeta,NTrees,MaxDepth,MinNodeSize,UseBaggedBoost,BaggedSampleFraction,SeparationType,nCuts,IgnoreNegWeightsInTraining
+
+dict_bound={
+    "Shrinkage__AdaBoostBeta":[0.005, 0.2],
+    "NTrees":[100, 2000],
+    "MaxDepth":[1,6],
+    "BaggedSampleFraction":[0.1,1.1],
+    "MinNodeSize":[0.1,15],
+    "nCuts":[5,50],
+}
+
+
+def IsWithinBoundary(_r):
+    ##r = result
+    for key in ["Shrinkage__AdaBoostBeta","NTrees","MaxDepth","MinNodeSize","BaggedSampleFraction","nCuts"]:
+        this_value=float(_r[key])
+        if key=="BaggedSampleFraction":
+            #print(this_value)
+            if this_value== 0. : return 1
+        if this_value < dict_bound[key][0] : return 0
+        if this_value > dict_bound[key][1] : return 0            
+    return 1
+
+
+class Plotter:
+    def __init__(self,name,result,key):
+        self.name=name
+        self.result=result
+        self.key=key
+        
+        
+        self.list_v=self.CheckPossibleValue(key)
+        
+
+        self.dict_bound={
+            "Shrinkage__AdaBoostBeta":[0.005, 1],
+            "NTrees":[100, 2000],
+            "MaxDepth":[1,6],
+            "BaggedSampleFraction":[0.1,1],
+            "MinNodeSize":[0.1,5],
+            "nCuts":[5,50],
+        }
+
+        #self.DrawGraph()
+    def CheckPossibleValue(self,key):
+        possible_values = set(r[key] for r in self.result)
+        mylist=list(possible_values)
+        newlist=[]
+        for v in mylist:
+            newlist.append(float(v))
+        newlist=sorted(newlist)
+        return newlist              
+    
+        
+        
+    def GetBestAUCForGivenValue(self,value,overfit_threshold=0.1):
+        filtered = [r for r in self.result if float(r[self.key])==value and GetRelDiff(r['sigeff_B0p3'][0],r['sigeff_B0p3'][1])<0.1 and GetRelDiff(r['sigeff_B0p1'][0],r['sigeff_B0p1'][1])<0.1 and GetRelDiff(r['sigeff_B0p01'][0],r['sigeff_B0p01'][1])<0.2 and IsWithinBoundary(r)]
+        if len(filtered) == 0 :return 0
+        best = max(filtered, key=lambda r: r['auc'])
+        return best['auc']
+
+
+
+
+
+        
+        
+    
+    def DrawGraph(self):
+        print("<DrawGraph>",self.key)
+        best_auc=-1
+        best_v=-1
+        
+        self.graph = ROOT.TGraph()
+        keyname=self.key.replace("__AdaBoostBeta","")
+        
+        self.graph.SetTitle(keyname)
+        k=0
+        for v in sorted(self.list_v):
+            this_auc=self.GetBestAUCForGivenValue(v)
+            if this_auc<0.5 :
+                #this_auc=0.5
+                continue ##skip
+            ##BaggedSampleFraction
+            if keyname=="BaggedSampleFraction" and v==0 : v=1
+
+            self.graph.SetPoint(k,v,this_auc)
+            k+=1
+            if this_auc > best_auc:
+                best_auc=this_auc
+                best_v=v
+        print('Number of points in graph=',k)
+        if k <3 : self.graph.SetPoint(k,0,0)
+        c=ROOT.TCanvas("","",800,600)
+        self.graph.Draw()
+        ##---draw best auc point---##
+        #TLine(Double_t x1,Double_t y1,Double_t x2,Double_t y2)
+        bestline=ROOT.TLine(best_v,0,best_v,best_auc)
+        bestline.SetLineColor(ROOT.kRed)
+
+        
+        os.system('mkdir -p plots1D/'+self.name+"/")
+        c.SaveAs('plots1D/'+self.name +"/" +  "__".join([self.name,keyname]) +".pdf")
+        c.SetLogy()
+        c.SaveAs('plots1D/'+self.name +"/logy__" +  "__".join([self.name,keyname]) +".pdf")
+
+        print('-----------')
+        print(keyname,'=',best_v)
+        print('best_auc=',best_auc)
+
+def GetBestPoint(result):
+    _filtered = [r for r in result if GetRelDiff(r['sigeff_B0p3'][0],r['sigeff_B0p3'][1])<0.1 and GetRelDiff(r['sigeff_B0p1'][0],r['sigeff_B0p1'][1])<0.1 and GetRelDiff(r['sigeff_B0p01'][0],r['sigeff_B0p01'][1])<0.2 and IsWithinBoundary(r)]
+    if len(_filtered) == 0 :return 0
+    best = max(_filtered, key=lambda r: r['auc'])
+    print(best)        
+#jet2016postVFP/run.done  jet2016preVFP/run.done  jet2017/run.done  jet2018/run.done  muon2016postVFP/run.done  muon2016preVFP/run.done
+import sys
+obj=sys.argv[1]
+year=sys.argv[2]
+#obj='jet'
+#year='2016postVFP'
+
+
+
+#list_Shrinkage=['0.04', '0.06','0.08','0.12']
+#list_NTrees=['500', '600','700','800']
+#list_MaxDepth=['4','5','6']
+#list_BaggedSampleFraction=['0.4', '0.5', '0.6','0.7']
+#list_MinNodeSize=['1.0','2.5']
+#list_nCuts=['10','20','30']
+
+JetKeyList={
+    'Shrinkage__AdaBoostBeta':[0.04,0.06,0.08,0.12],
+    'NTrees':[500,600,700,800],
+    'MaxDepth':[4,5,6],
+    'BaggedSampleFraction':[0,0.4,0.5,0.6,0.7],
+    'MinNodeSize':[1,2.5],
+    'nCuts':[10,20,30]
+}
+JetKeyList={}
+LeptonKeyList={
+    'Shrinkage__AdaBoostBeta':[0.0001,0.001,0.003,0.005,0.007,0.01,0.05, 0.07,0.1,0.15,0.2],
+    'NTrees':[500, 600,700,800, 1200],
+    'MaxDepth':[4,5,6],
+    'BaggedSampleFraction':[0,0.2,0.3,0.4, 0.5, 0.6,0.7],
+    'MinNodeSize':[1.0,1.5,2.0,2.5,3.0],
+    'nCuts':[10,20,30,40]
+
+}
+LeptonKeyList={}
+
+####
+search=obj+"__"+year+"*.pkl"
+pkls=glob.glob(search)
+result=[]
+for path in pkls:
+    #path='old/'+obj+"__"+year+".pkl"
+    with open(path,"rb") as f:
+        this_result = pickle.load(f)        
+        this_result = [r for r in this_result if r['BoostType'] == 'Grad']
+        result+=this_result
+    print('---',path,'----')
+print('nresult=',len(result))
+GetBestPoint(result)    
+#Shrinkage__AdaBoostBeta,NTrees,MaxDepth,MinNodeSize,UseBaggedBoost,BaggedSampleFraction,SeparationType,nCuts
+keylist=["Shrinkage__AdaBoostBeta","NTrees","MaxDepth","MinNodeSize","BaggedSampleFraction","nCuts"]
+for i,key in enumerate(keylist):    
+    myplot=Plotter(obj+"__"+year,result,key)
+    if obj=='jet':
+        if key in JetKeyList : myplot.list_v=JetKeyList[key]
+    else:
+        if key in LeptonKeyList : myplot.list_v=LeptonKeyList[key]
+
+    myplot.DrawGraph()
+    del myplot
