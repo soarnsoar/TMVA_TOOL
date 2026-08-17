@@ -130,8 +130,8 @@ for channel in channels:
                                                                 continue
                                                             
                                                             command=MakeCommand(WORKDIR,this_opt,"BDT_"+year+"*")
-                                                            #Export(WORKDIR,command,"BDT_"+channel+"_"+str(version)+"_"+year,submit,1)
-                                                            Export(WORKDIR,command,"BDT_"+channel+"_"+str(version)+"_"+year,submit,1,False,3,1200)
+                                                            Export(WORKDIR,command,"BDT_"+channel+"_"+str(version)+"_"+year,submit,1)
+                                                            #Export(WORKDIR,command,"BDT_"+channel+"_"+str(version)+"_"+year,submit,1,False,3,1200)
 
                                                             i_submit+=1
 
