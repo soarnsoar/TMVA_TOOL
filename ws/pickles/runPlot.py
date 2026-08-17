@@ -67,6 +67,13 @@ class Plotter:
         best = max(filtered, key=lambda r: r['auc'])
         return best['auc']
 
+
+
+
+
+        
+        
+    
     def DrawGraph(self):
         print("<DrawGraph>",self.key1,self.key2)
         best_auc=-1

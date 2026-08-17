@@ -5,13 +5,18 @@ mkdir -p logs/
 ##
 OBJ=jet
 YEAR=2016preVFP
-python3 runPlot.py ${OBJ} ${YEAR} &> logs/${OBJ}__${YEAR}.log&
+#python3 runPlot.py ${OBJ} ${YEAR} &> logs/${OBJ}__${YEAR}.log&
 ##
 OBJ=jet
 YEAR=2017
-python3 runPlot.py ${OBJ} ${YEAR} &> logs/${OBJ}__${YEAR}.log&
+#python3 runPlot.py ${OBJ} ${YEAR} &> logs/${OBJ}__${YEAR}.log&
 
 OBJ=jet
 YEAR=2018
+#python3 runPlot.py ${OBJ} ${YEAR} &> logs/${OBJ}__${YEAR}.log&
+
+
+OBJ=electron
+YEAR=2016preVFP
 python3 runPlot.py ${OBJ} ${YEAR} &> logs/${OBJ}__${YEAR}.log&
 
