@@ -71,7 +71,7 @@ def RunYear(obj,Year,transform):
     Trf=transform
     #overfit_threshold=0.03
     overfit_threshold=1. ## reldiff must be less than this value
-    outlist=glob.glob("WORKDIR/2409.2/"+year+"/"+obj+"/"+Trf+"/*/*/NTrees__*/MaxDepth__*/MinNodeSize__*/UseBaggedBoost*/BaggedSampleFraction*/SeparationType__*/nCuts__*/IgnoreNegWeightsInTraining__*/run.out")
+    outlist=glob.glob("WORKDIR/2608.2/"+year+"/"+obj+"/"+Trf+"/*/*/NTrees__*/MaxDepth__*/MinNodeSize__*/UseBaggedBoost*/BaggedSampleFraction*/SeparationType__*/nCuts__*/IgnoreNegWeightsInTraining__*/run.out")
     print(len(outlist))
     maxauc=-1
     maxauc_info={}
