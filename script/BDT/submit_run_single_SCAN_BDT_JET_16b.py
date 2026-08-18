@@ -64,7 +64,7 @@ list_nCuts=['5','30','40','50']
 list_SeparationType=["CrossEntropy"]
 
 ##--step3
-list_BaggedSampleFraction=['0.1','0.2', '0.4']
+list_BaggedSampleFraction=['0.1','0.2', '0.4', '0.5']
 list_MaxDepth=['4','6','8']
 list_MinNodeSize=['0.1','0.5', '1', '2.5']
 list_NTrees=['200','500','800']
