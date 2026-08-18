@@ -56,15 +56,21 @@ version="2608.2"
 
 list_BoostType=["Grad"]
 transforms=["I","G"]
-#list_BaggedSampleFraction=['0.4', '0.5', '0.6']
-#list_MaxDepth=['4','6','8']
-#list_MinNodeSize=['0.5', '1', '2.5']
-#list_NTrees=['1000','1500','3000']
-#list_Shrinkage=['0.01', '0.005', '0.001']
-#list_nCuts=['5','30','40','50']
+list_BaggedSampleFraction=['0.3','0.4', '0.5', '0.6','0.8']
+list_MaxDepth=['4','6','8']
+list_MinNodeSize=['0.5', '1', '2.5']
+list_NTrees=['1000','1500','3000']
+list_Shrinkage=['0.01', '0.005', '0.001']
+list_nCuts=['5','10','20','30','40']
 list_SeparationType=["CrossEntropy"]
 
-
+##--step3
+list_BaggedSampleFraction=['0.3','0.4', '0.5', '0.6','0.8']
+list_MaxDepth=['4','6','8']
+list_MinNodeSize=['0.5', '1', '2.5']
+list_NTrees=['500','1000','1500']
+list_Shrinkage=['0.01', '0.005', '0.001']
+list_nCuts=['5','10','20','30','40']
 
 
 submit=1

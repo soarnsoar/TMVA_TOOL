@@ -64,7 +64,13 @@ list_Shrinkage=['0.1', '0.4', '0.8']
 list_nCuts=['30','40','50']
 list_SeparationType=["CrossEntropy"]
 
-
+##--step3
+list_BaggedSampleFraction=['0.2', '0.6',]
+list_MaxDepth=['4','6','8']
+list_MinNodeSize=['0.1','0.5', '1', '2.5']
+list_NTrees=['10','50','100','300',]
+list_Shrinkage=['0.1', '0.4', '0.8']
+list_nCuts=['30','40','50']
 
 submit=1
 ##-----subopt
