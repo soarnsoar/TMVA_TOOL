@@ -1,0 +1,128 @@
+Info in <TCanvas::Print>: pdf file plots/jet__2018/jet__2018__NTrees__Shrinkage.pdf has been created
+Info in <TCanvas::Print>: pdf file plots/jet__2018/logz__jet__2018__NTrees__Shrinkage.pdf has been created
+Info in <TCanvas::Print>: pdf file plots/jet__2018/jet__2018__MaxDepth__Shrinkage.pdf has been created
+Info in <TCanvas::Print>: pdf file plots/jet__2018/logz__jet__2018__MaxDepth__Shrinkage.pdf has been created
+Info in <TCanvas::Print>: pdf file plots/jet__2018/jet__2018__MaxDepth__NTrees.pdf has been created
+Info in <TCanvas::Print>: pdf file plots/jet__2018/logz__jet__2018__MaxDepth__NTrees.pdf has been created
+Info in <TCanvas::Print>: pdf file plots/jet__2018/jet__2018__MinNodeSize__Shrinkage.pdf has been created
+Info in <TCanvas::Print>: pdf file plots/jet__2018/logz__jet__2018__MinNodeSize__Shrinkage.pdf has been created
+Info in <TCanvas::Print>: pdf file plots/jet__2018/jet__2018__MinNodeSize__NTrees.pdf has been created
+Info in <TCanvas::Print>: pdf file plots/jet__2018/logz__jet__2018__MinNodeSize__NTrees.pdf has been created
+Info in <TCanvas::Print>: pdf file plots/jet__2018/jet__2018__MinNodeSize__MaxDepth.pdf has been created
+Info in <TCanvas::Print>: pdf file plots/jet__2018/logz__jet__2018__MinNodeSize__MaxDepth.pdf has been created
+Info in <TCanvas::Print>: pdf file plots/jet__2018/jet__2018__BaggedSampleFraction__Shrinkage.pdf has been created
+Info in <TCanvas::Print>: pdf file plots/jet__2018/logz__jet__2018__BaggedSampleFraction__Shrinkage.pdf has been created
+Info in <TCanvas::Print>: pdf file plots/jet__2018/jet__2018__BaggedSampleFraction__NTrees.pdf has been created
+Info in <TCanvas::Print>: pdf file plots/jet__2018/logz__jet__2018__BaggedSampleFraction__NTrees.pdf has been created
+Info in <TCanvas::Print>: pdf file plots/jet__2018/jet__2018__BaggedSampleFraction__MaxDepth.pdf has been created
+Info in <TCanvas::Print>: pdf file plots/jet__2018/logz__jet__2018__BaggedSampleFraction__MaxDepth.pdf has been created
+Info in <TCanvas::Print>: pdf file plots/jet__2018/jet__2018__BaggedSampleFraction__MinNodeSize.pdf has been created
+Info in <TCanvas::Print>: pdf file plots/jet__2018/logz__jet__2018__BaggedSampleFraction__MinNodeSize.pdf has been created
+Info in <TCanvas::Print>: pdf file plots/jet__2018/jet__2018__nCuts__Shrinkage.pdf has been created
+Info in <TCanvas::Print>: pdf file plots/jet__2018/logz__jet__2018__nCuts__Shrinkage.pdf has been created
+Info in <TCanvas::Print>: pdf file plots/jet__2018/jet__2018__nCuts__NTrees.pdf has been created
+Info in <TCanvas::Print>: pdf file plots/jet__2018/logz__jet__2018__nCuts__NTrees.pdf has been created
+Info in <TCanvas::Print>: pdf file plots/jet__2018/jet__2018__nCuts__MaxDepth.pdf has been created
+Info in <TCanvas::Print>: pdf file plots/jet__2018/logz__jet__2018__nCuts__MaxDepth.pdf has been created
+Info in <TCanvas::Print>: pdf file plots/jet__2018/jet__2018__nCuts__MinNodeSize.pdf has been created
+Info in <TCanvas::Print>: pdf file plots/jet__2018/logz__jet__2018__nCuts__MinNodeSize.pdf has been created
+Info in <TCanvas::Print>: pdf file plots/jet__2018/jet__2018__nCuts__BaggedSampleFraction.pdf has been created
+Info in <TCanvas::Print>: pdf file plots/jet__2018/logz__jet__2018__nCuts__BaggedSampleFraction.pdf has been created
+--- jet__2018__D.pkl ----
+--- jet__2018__P.pkl ----
+--- jet__2018__N.pkl ----
+--- jet__2018__G.pkl ----
+--- jet__2018__U.pkl ----
+--- jet__2018__I.pkl ----
+nresult= 10368
+{'Trf': 'G', 'BoostType': 'Grad', 'Shrinkage__AdaBoostBeta': '0.1', 'NTrees': '500', 'MaxDepth': '4', 'MinNodeSize': '2.5', 'UseBaggedBoost': 'True', 'BaggedSampleFraction': '0.6', 'SeparationType': 'GiniIndex', 'nCuts': '30', 'IgnoreNegWeightsInTraining': 'True', 'auc': 0.6003862349415258, 'sigeff_B0p3': [0.448, 0.454], 'sigeff_B0p1': [0.193, 0.2], 'sigeff_B0p01': [0.023, 0.024]}
+<DrawGraph> NTrees Shrinkage__AdaBoostBeta
+Number of points in graph= 9
+-----------
+NTrees = 500.0
+Shrinkage = 0.1
+best_auc= 0.6003862349415258
+<DrawGraph> MaxDepth Shrinkage__AdaBoostBeta
+Number of points in graph= 9
+-----------
+MaxDepth = 4.0
+Shrinkage = 0.1
+best_auc= 0.6003862349415258
+<DrawGraph> MaxDepth NTrees
+Number of points in graph= 9
+-----------
+MaxDepth = 4.0
+NTrees = 500.0
+best_auc= 0.6003862349415258
+<DrawGraph> MinNodeSize Shrinkage__AdaBoostBeta
+Number of points in graph= 9
+-----------
+MinNodeSize = 2.5
+Shrinkage = 0.1
+best_auc= 0.6003862349415258
+<DrawGraph> MinNodeSize NTrees
+Number of points in graph= 9
+-----------
+MinNodeSize = 2.5
+NTrees = 500.0
+best_auc= 0.6003862349415258
+<DrawGraph> MinNodeSize MaxDepth
+Number of points in graph= 9
+-----------
+MinNodeSize = 2.5
+MaxDepth = 4.0
+best_auc= 0.6003862349415258
+<DrawGraph> BaggedSampleFraction Shrinkage__AdaBoostBeta
+Number of points in graph= 12
+-----------
+BaggedSampleFraction = 0.6
+Shrinkage = 0.1
+best_auc= 0.6003862349415258
+<DrawGraph> BaggedSampleFraction NTrees
+Number of points in graph= 12
+-----------
+BaggedSampleFraction = 0.6
+NTrees = 500.0
+best_auc= 0.6003862349415258
+<DrawGraph> BaggedSampleFraction MaxDepth
+Number of points in graph= 12
+-----------
+BaggedSampleFraction = 0.6
+MaxDepth = 4.0
+best_auc= 0.6003862349415258
+<DrawGraph> BaggedSampleFraction MinNodeSize
+Number of points in graph= 12
+-----------
+BaggedSampleFraction = 0.6
+MinNodeSize = 2.5
+best_auc= 0.6003862349415258
+<DrawGraph> nCuts Shrinkage__AdaBoostBeta
+Number of points in graph= 9
+-----------
+nCuts = 30.0
+Shrinkage = 0.1
+best_auc= 0.6003862349415258
+<DrawGraph> nCuts NTrees
+Number of points in graph= 9
+-----------
+nCuts = 30.0
+NTrees = 500.0
+best_auc= 0.6003862349415258
+<DrawGraph> nCuts MaxDepth
+Number of points in graph= 9
+-----------
+nCuts = 30.0
+MaxDepth = 4.0
+best_auc= 0.6003862349415258
+<DrawGraph> nCuts MinNodeSize
+Number of points in graph= 9
+-----------
+nCuts = 30.0
+MinNodeSize = 2.5
+best_auc= 0.6003862349415258
+<DrawGraph> nCuts BaggedSampleFraction
+Number of points in graph= 12
+-----------
+nCuts = 30.0
+BaggedSampleFraction = 0.6
+best_auc= 0.6003862349415258

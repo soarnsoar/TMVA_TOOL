@@ -1,0 +1,48 @@
+Info in <TCanvas::Print>: pdf file plots1D/muon__2018/muon__2018__Shrinkage.pdf has been created
+Info in <TCanvas::Print>: pdf file plots1D/muon__2018/logy__muon__2018__Shrinkage.pdf has been created
+Info in <TCanvas::Print>: pdf file plots1D/muon__2018/muon__2018__NTrees.pdf has been created
+Info in <TCanvas::Print>: pdf file plots1D/muon__2018/logy__muon__2018__NTrees.pdf has been created
+Info in <TCanvas::Print>: pdf file plots1D/muon__2018/muon__2018__MaxDepth.pdf has been created
+Info in <TCanvas::Print>: pdf file plots1D/muon__2018/logy__muon__2018__MaxDepth.pdf has been created
+Info in <TCanvas::Print>: pdf file plots1D/muon__2018/muon__2018__MinNodeSize.pdf has been created
+Info in <TCanvas::Print>: pdf file plots1D/muon__2018/logy__muon__2018__MinNodeSize.pdf has been created
+Info in <TCanvas::Print>: pdf file plots1D/muon__2018/muon__2018__BaggedSampleFraction.pdf has been created
+Info in <TCanvas::Print>: pdf file plots1D/muon__2018/logy__muon__2018__BaggedSampleFraction.pdf has been created
+Info in <TCanvas::Print>: pdf file plots1D/muon__2018/muon__2018__nCuts.pdf has been created
+Info in <TCanvas::Print>: pdf file plots1D/muon__2018/logy__muon__2018__nCuts.pdf has been created
+--- muon__2018__I.pkl ----
+--- muon__2018__U.pkl ----
+--- muon__2018__G.pkl ----
+--- muon__2018__N.pkl ----
+nresult= 10368
+{'Trf': 'G', 'BoostType': 'Grad', 'Shrinkage__AdaBoostBeta': '0.01', 'NTrees': '1000', 'MaxDepth': '4', 'MinNodeSize': '2.5', 'UseBaggedBoost': 'True', 'BaggedSampleFraction': '0.6', 'SeparationType': 'GiniIndex', 'nCuts': '20', 'IgnoreNegWeightsInTraining': 'True', 'auc': 0.7542818281119987, 'sigeff_B0p3': [0.677, 0.678], 'sigeff_B0p1': [0.384, 0.409], 'sigeff_B0p01': [0.089, 0.091]}
+<DrawGraph> Shrinkage__AdaBoostBeta
+Number of points in graph= 3
+-----------
+Shrinkage = 0.01
+best_auc= 0.7542818281119987
+<DrawGraph> NTrees
+Number of points in graph= 3
+-----------
+NTrees = 1000.0
+best_auc= 0.7542818281119987
+<DrawGraph> MaxDepth
+Number of points in graph= 3
+-----------
+MaxDepth = 4.0
+best_auc= 0.7542818281119987
+<DrawGraph> MinNodeSize
+Number of points in graph= 3
+-----------
+MinNodeSize = 2.5
+best_auc= 0.7542818281119987
+<DrawGraph> BaggedSampleFraction
+Number of points in graph= 4
+-----------
+BaggedSampleFraction = 0.6
+best_auc= 0.7542818281119987
+<DrawGraph> nCuts
+Number of points in graph= 3
+-----------
+nCuts = 20.0
+best_auc= 0.7542818281119987

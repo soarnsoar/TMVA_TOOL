@@ -1,0 +1,48 @@
+Info in <TCanvas::Print>: pdf file plots1D/jet__2016postVFP/jet__2016postVFP__Shrinkage.pdf has been created
+Info in <TCanvas::Print>: pdf file plots1D/jet__2016postVFP/logy__jet__2016postVFP__Shrinkage.pdf has been created
+Info in <TCanvas::Print>: pdf file plots1D/jet__2016postVFP/jet__2016postVFP__NTrees.pdf has been created
+Info in <TCanvas::Print>: pdf file plots1D/jet__2016postVFP/logy__jet__2016postVFP__NTrees.pdf has been created
+Info in <TCanvas::Print>: pdf file plots1D/jet__2016postVFP/jet__2016postVFP__MaxDepth.pdf has been created
+Info in <TCanvas::Print>: pdf file plots1D/jet__2016postVFP/logy__jet__2016postVFP__MaxDepth.pdf has been created
+Info in <TCanvas::Print>: pdf file plots1D/jet__2016postVFP/jet__2016postVFP__MinNodeSize.pdf has been created
+Info in <TCanvas::Print>: pdf file plots1D/jet__2016postVFP/logy__jet__2016postVFP__MinNodeSize.pdf has been created
+Info in <TCanvas::Print>: pdf file plots1D/jet__2016postVFP/jet__2016postVFP__BaggedSampleFraction.pdf has been created
+Info in <TCanvas::Print>: pdf file plots1D/jet__2016postVFP/logy__jet__2016postVFP__BaggedSampleFraction.pdf has been created
+Info in <TCanvas::Print>: pdf file plots1D/jet__2016postVFP/jet__2016postVFP__nCuts.pdf has been created
+Info in <TCanvas::Print>: pdf file plots1D/jet__2016postVFP/logy__jet__2016postVFP__nCuts.pdf has been created
+--- jet__2016postVFP__I.pkl ----
+--- jet__2016postVFP__U.pkl ----
+--- jet__2016postVFP__G.pkl ----
+--- jet__2016postVFP__N.pkl ----
+nresult= 10368
+{'Trf': 'G', 'BoostType': 'Grad', 'Shrinkage__AdaBoostBeta': '0.05', 'NTrees': '800', 'MaxDepth': '4', 'MinNodeSize': '2.5', 'UseBaggedBoost': 'True', 'BaggedSampleFraction': '0.5', 'SeparationType': 'GiniIndex', 'nCuts': '10', 'IgnoreNegWeightsInTraining': 'True', 'auc': 0.5980903077348187, 'sigeff_B0p3': [0.444, 0.451], 'sigeff_B0p1': [0.189, 0.2], 'sigeff_B0p01': [0.025, 0.03]}
+<DrawGraph> Shrinkage__AdaBoostBeta
+Number of points in graph= 3
+-----------
+Shrinkage = 0.05
+best_auc= 0.5980903077348187
+<DrawGraph> NTrees
+Number of points in graph= 3
+-----------
+NTrees = 800.0
+best_auc= 0.5980903077348187
+<DrawGraph> MaxDepth
+Number of points in graph= 3
+-----------
+MaxDepth = 4.0
+best_auc= 0.5980903077348187
+<DrawGraph> MinNodeSize
+Number of points in graph= 3
+-----------
+MinNodeSize = 2.5
+best_auc= 0.5980903077348187
+<DrawGraph> BaggedSampleFraction
+Number of points in graph= 4
+-----------
+BaggedSampleFraction = 0.5
+best_auc= 0.5980903077348187
+<DrawGraph> nCuts
+Number of points in graph= 3
+-----------
+nCuts = 10.0
+best_auc= 0.5980903077348187

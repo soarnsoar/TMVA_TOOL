@@ -1,0 +1,48 @@
+Info in <TCanvas::Print>: pdf file plots1D/electron__2016postVFP/electron__2016postVFP__Shrinkage.pdf has been created
+Info in <TCanvas::Print>: pdf file plots1D/electron__2016postVFP/logy__electron__2016postVFP__Shrinkage.pdf has been created
+Info in <TCanvas::Print>: pdf file plots1D/electron__2016postVFP/electron__2016postVFP__NTrees.pdf has been created
+Info in <TCanvas::Print>: pdf file plots1D/electron__2016postVFP/logy__electron__2016postVFP__NTrees.pdf has been created
+Info in <TCanvas::Print>: pdf file plots1D/electron__2016postVFP/electron__2016postVFP__MaxDepth.pdf has been created
+Info in <TCanvas::Print>: pdf file plots1D/electron__2016postVFP/logy__electron__2016postVFP__MaxDepth.pdf has been created
+Info in <TCanvas::Print>: pdf file plots1D/electron__2016postVFP/electron__2016postVFP__MinNodeSize.pdf has been created
+Info in <TCanvas::Print>: pdf file plots1D/electron__2016postVFP/logy__electron__2016postVFP__MinNodeSize.pdf has been created
+Info in <TCanvas::Print>: pdf file plots1D/electron__2016postVFP/electron__2016postVFP__BaggedSampleFraction.pdf has been created
+Info in <TCanvas::Print>: pdf file plots1D/electron__2016postVFP/logy__electron__2016postVFP__BaggedSampleFraction.pdf has been created
+Info in <TCanvas::Print>: pdf file plots1D/electron__2016postVFP/electron__2016postVFP__nCuts.pdf has been created
+Info in <TCanvas::Print>: pdf file plots1D/electron__2016postVFP/logy__electron__2016postVFP__nCuts.pdf has been created
+--- electron__2016postVFP__G.pkl ----
+--- electron__2016postVFP__I.pkl ----
+--- electron__2016postVFP__N.pkl ----
+--- electron__2016postVFP__U.pkl ----
+nresult= 10368
+{'Trf': 'G', 'BoostType': 'Grad', 'Shrinkage__AdaBoostBeta': '0.01', 'NTrees': '500', 'MaxDepth': '4', 'MinNodeSize': '2.5', 'UseBaggedBoost': 'True', 'BaggedSampleFraction': '0.5', 'SeparationType': 'GiniIndex', 'nCuts': '30', 'IgnoreNegWeightsInTraining': 'True', 'auc': 0.7042025463210984, 'sigeff_B0p3': [0.597, 0.61], 'sigeff_B0p1': [0.3, 0.332], 'sigeff_B0p01': [0.062, 0.061]}
+<DrawGraph> Shrinkage__AdaBoostBeta
+Number of points in graph= 3
+-----------
+Shrinkage = 0.01
+best_auc= 0.7042025463210984
+<DrawGraph> NTrees
+Number of points in graph= 3
+-----------
+NTrees = 500.0
+best_auc= 0.7042025463210984
+<DrawGraph> MaxDepth
+Number of points in graph= 3
+-----------
+MaxDepth = 4.0
+best_auc= 0.7042025463210984
+<DrawGraph> MinNodeSize
+Number of points in graph= 3
+-----------
+MinNodeSize = 2.5
+best_auc= 0.7042025463210984
+<DrawGraph> BaggedSampleFraction
+Number of points in graph= 4
+-----------
+BaggedSampleFraction = 0.5
+best_auc= 0.7042025463210984
+<DrawGraph> nCuts
+Number of points in graph= 3
+-----------
+nCuts = 30.0
+best_auc= 0.7042025463210984
