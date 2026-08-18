@@ -1,0 +1,128 @@
+Info in <TCanvas::Print>: pdf file plots/electron__2016preVFP/electron__2016preVFP__NTrees__Shrinkage.pdf has been created
+Info in <TCanvas::Print>: pdf file plots/electron__2016preVFP/logz__electron__2016preVFP__NTrees__Shrinkage.pdf has been created
+Info in <TCanvas::Print>: pdf file plots/electron__2016preVFP/electron__2016preVFP__MaxDepth__Shrinkage.pdf has been created
+Info in <TCanvas::Print>: pdf file plots/electron__2016preVFP/logz__electron__2016preVFP__MaxDepth__Shrinkage.pdf has been created
+Info in <TCanvas::Print>: pdf file plots/electron__2016preVFP/electron__2016preVFP__MaxDepth__NTrees.pdf has been created
+Info in <TCanvas::Print>: pdf file plots/electron__2016preVFP/logz__electron__2016preVFP__MaxDepth__NTrees.pdf has been created
+Info in <TCanvas::Print>: pdf file plots/electron__2016preVFP/electron__2016preVFP__MinNodeSize__Shrinkage.pdf has been created
+Info in <TCanvas::Print>: pdf file plots/electron__2016preVFP/logz__electron__2016preVFP__MinNodeSize__Shrinkage.pdf has been created
+Info in <TCanvas::Print>: pdf file plots/electron__2016preVFP/electron__2016preVFP__MinNodeSize__NTrees.pdf has been created
+Info in <TCanvas::Print>: pdf file plots/electron__2016preVFP/logz__electron__2016preVFP__MinNodeSize__NTrees.pdf has been created
+Info in <TCanvas::Print>: pdf file plots/electron__2016preVFP/electron__2016preVFP__MinNodeSize__MaxDepth.pdf has been created
+Info in <TCanvas::Print>: pdf file plots/electron__2016preVFP/logz__electron__2016preVFP__MinNodeSize__MaxDepth.pdf has been created
+Info in <TCanvas::Print>: pdf file plots/electron__2016preVFP/electron__2016preVFP__BaggedSampleFraction__Shrinkage.pdf has been created
+Info in <TCanvas::Print>: pdf file plots/electron__2016preVFP/logz__electron__2016preVFP__BaggedSampleFraction__Shrinkage.pdf has been created
+Info in <TCanvas::Print>: pdf file plots/electron__2016preVFP/electron__2016preVFP__BaggedSampleFraction__NTrees.pdf has been created
+Info in <TCanvas::Print>: pdf file plots/electron__2016preVFP/logz__electron__2016preVFP__BaggedSampleFraction__NTrees.pdf has been created
+Info in <TCanvas::Print>: pdf file plots/electron__2016preVFP/electron__2016preVFP__BaggedSampleFraction__MaxDepth.pdf has been created
+Info in <TCanvas::Print>: pdf file plots/electron__2016preVFP/logz__electron__2016preVFP__BaggedSampleFraction__MaxDepth.pdf has been created
+Info in <TCanvas::Print>: pdf file plots/electron__2016preVFP/electron__2016preVFP__BaggedSampleFraction__MinNodeSize.pdf has been created
+Info in <TCanvas::Print>: pdf file plots/electron__2016preVFP/logz__electron__2016preVFP__BaggedSampleFraction__MinNodeSize.pdf has been created
+Info in <TCanvas::Print>: pdf file plots/electron__2016preVFP/electron__2016preVFP__nCuts__Shrinkage.pdf has been created
+Info in <TCanvas::Print>: pdf file plots/electron__2016preVFP/logz__electron__2016preVFP__nCuts__Shrinkage.pdf has been created
+Info in <TCanvas::Print>: pdf file plots/electron__2016preVFP/electron__2016preVFP__nCuts__NTrees.pdf has been created
+Info in <TCanvas::Print>: pdf file plots/electron__2016preVFP/logz__electron__2016preVFP__nCuts__NTrees.pdf has been created
+Info in <TCanvas::Print>: pdf file plots/electron__2016preVFP/electron__2016preVFP__nCuts__MaxDepth.pdf has been created
+Info in <TCanvas::Print>: pdf file plots/electron__2016preVFP/logz__electron__2016preVFP__nCuts__MaxDepth.pdf has been created
+Info in <TCanvas::Print>: pdf file plots/electron__2016preVFP/electron__2016preVFP__nCuts__MinNodeSize.pdf has been created
+Info in <TCanvas::Print>: pdf file plots/electron__2016preVFP/logz__electron__2016preVFP__nCuts__MinNodeSize.pdf has been created
+Info in <TCanvas::Print>: pdf file plots/electron__2016preVFP/electron__2016preVFP__nCuts__BaggedSampleFraction.pdf has been created
+Info in <TCanvas::Print>: pdf file plots/electron__2016preVFP/logz__electron__2016preVFP__nCuts__BaggedSampleFraction.pdf has been created
+--- electron__2016preVFP__D.pkl ----
+--- electron__2016preVFP__P.pkl ----
+--- electron__2016preVFP__U.pkl ----
+--- electron__2016preVFP__N.pkl ----
+--- electron__2016preVFP__I.pkl ----
+--- electron__2016preVFP__G.pkl ----
+nresult= 12280
+{'Trf': 'G', 'BoostType': 'Grad', 'Shrinkage__AdaBoostBeta': '0.005', 'NTrees': '800', 'MaxDepth': '4', 'MinNodeSize': '1', 'UseBaggedBoost': 'True', 'BaggedSampleFraction': '0.1', 'SeparationType': 'CrossEntropy', 'nCuts': '10', 'IgnoreNegWeightsInTraining': 'True', 'auc': 0.699832425178084, 'sigeff_B0p3': [0.592, 0.59], 'sigeff_B0p1': [0.301, 0.293], 'sigeff_B0p01': [0.051, 0.063]}
+<DrawGraph> NTrees Shrinkage__AdaBoostBeta
+Number of points in graph= 17
+-----------
+NTrees = 800.0
+Shrinkage = 0.005
+best_auc= 0.699832425178084
+<DrawGraph> MaxDepth Shrinkage__AdaBoostBeta
+Number of points in graph= 16
+-----------
+MaxDepth = 4.0
+Shrinkage = 0.005
+best_auc= 0.699832425178084
+<DrawGraph> MaxDepth NTrees
+Number of points in graph= 14
+-----------
+MaxDepth = 4.0
+NTrees = 800.0
+best_auc= 0.699832425178084
+<DrawGraph> MinNodeSize Shrinkage__AdaBoostBeta
+Number of points in graph= 17
+-----------
+MinNodeSize = 1.0
+Shrinkage = 0.005
+best_auc= 0.699832425178084
+<DrawGraph> MinNodeSize NTrees
+Number of points in graph= 16
+-----------
+MinNodeSize = 1.0
+NTrees = 800.0
+best_auc= 0.699832425178084
+<DrawGraph> MinNodeSize MaxDepth
+Number of points in graph= 16
+-----------
+MinNodeSize = 1.0
+MaxDepth = 4.0
+best_auc= 0.699832425178084
+<DrawGraph> BaggedSampleFraction Shrinkage__AdaBoostBeta
+Number of points in graph= 22
+-----------
+BaggedSampleFraction = 0.1
+Shrinkage = 0.005
+best_auc= 0.699832425178084
+<DrawGraph> BaggedSampleFraction NTrees
+Number of points in graph= 20
+-----------
+BaggedSampleFraction = 0.1
+NTrees = 800.0
+best_auc= 0.699832425178084
+<DrawGraph> BaggedSampleFraction MaxDepth
+Number of points in graph= 20
+-----------
+BaggedSampleFraction = 0.1
+MaxDepth = 4.0
+best_auc= 0.699832425178084
+<DrawGraph> BaggedSampleFraction MinNodeSize
+Number of points in graph= 21
+-----------
+BaggedSampleFraction = 0.1
+MinNodeSize = 1.0
+best_auc= 0.699832425178084
+<DrawGraph> nCuts Shrinkage__AdaBoostBeta
+Number of points in graph= 16
+-----------
+nCuts = 10.0
+Shrinkage = 0.005
+best_auc= 0.699832425178084
+<DrawGraph> nCuts NTrees
+Number of points in graph= 14
+-----------
+nCuts = 10.0
+NTrees = 800.0
+best_auc= 0.699832425178084
+<DrawGraph> nCuts MaxDepth
+Number of points in graph= 14
+-----------
+nCuts = 10.0
+MaxDepth = 4.0
+best_auc= 0.699832425178084
+<DrawGraph> nCuts MinNodeSize
+Number of points in graph= 16
+-----------
+nCuts = 10.0
+MinNodeSize = 1.0
+best_auc= 0.699832425178084
+<DrawGraph> nCuts BaggedSampleFraction
+Number of points in graph= 20
+-----------
+nCuts = 10.0
+BaggedSampleFraction = 0.1
+best_auc= 0.699832425178084

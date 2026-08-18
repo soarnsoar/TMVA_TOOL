@@ -1,0 +1,50 @@
+Info in <TCanvas::Print>: pdf file plots1D/electron__2017/electron__2017__Shrinkage.pdf has been created
+Info in <TCanvas::Print>: pdf file plots1D/electron__2017/logy__electron__2017__Shrinkage.pdf has been created
+Info in <TCanvas::Print>: pdf file plots1D/electron__2017/electron__2017__NTrees.pdf has been created
+Info in <TCanvas::Print>: pdf file plots1D/electron__2017/logy__electron__2017__NTrees.pdf has been created
+Info in <TCanvas::Print>: pdf file plots1D/electron__2017/electron__2017__MaxDepth.pdf has been created
+Info in <TCanvas::Print>: pdf file plots1D/electron__2017/logy__electron__2017__MaxDepth.pdf has been created
+Info in <TCanvas::Print>: pdf file plots1D/electron__2017/electron__2017__MinNodeSize.pdf has been created
+Info in <TCanvas::Print>: pdf file plots1D/electron__2017/logy__electron__2017__MinNodeSize.pdf has been created
+Info in <TCanvas::Print>: pdf file plots1D/electron__2017/electron__2017__BaggedSampleFraction.pdf has been created
+Info in <TCanvas::Print>: pdf file plots1D/electron__2017/logy__electron__2017__BaggedSampleFraction.pdf has been created
+Info in <TCanvas::Print>: pdf file plots1D/electron__2017/electron__2017__nCuts.pdf has been created
+Info in <TCanvas::Print>: pdf file plots1D/electron__2017/logy__electron__2017__nCuts.pdf has been created
+--- electron__2017__D.pkl ----
+--- electron__2017__G.pkl ----
+--- electron__2017__N.pkl ----
+--- electron__2017__P.pkl ----
+--- electron__2017__U.pkl ----
+--- electron__2017__I.pkl ----
+nresult= 4998
+{'Trf': 'G', 'BoostType': 'Grad', 'Shrinkage__AdaBoostBeta': '0.01', 'NTrees': '1000', 'MaxDepth': '4', 'MinNodeSize': '2.5', 'UseBaggedBoost': 'True', 'BaggedSampleFraction': '0.6', 'SeparationType': 'CrossEntropy', 'nCuts': '20', 'IgnoreNegWeightsInTraining': 'True', 'auc': 0.7193983866183472, 'sigeff_B0p3': [0.622, 0.646], 'sigeff_B0p1': [0.322, 0.348], 'sigeff_B0p01': [0.064, 0.073]}
+<DrawGraph> Shrinkage__AdaBoostBeta
+Number of points in graph= 6
+-----------
+Shrinkage = 0.01
+best_auc= 0.7193983866183472
+<DrawGraph> NTrees
+Number of points in graph= 5
+-----------
+NTrees = 1000.0
+best_auc= 0.7193983866183472
+<DrawGraph> MaxDepth
+Number of points in graph= 5
+-----------
+MaxDepth = 4.0
+best_auc= 0.7193983866183472
+<DrawGraph> MinNodeSize
+Number of points in graph= 5
+-----------
+MinNodeSize = 2.5
+best_auc= 0.7193983866183472
+<DrawGraph> BaggedSampleFraction
+Number of points in graph= 5
+-----------
+BaggedSampleFraction = 0.6
+best_auc= 0.7193983866183472
+<DrawGraph> nCuts
+Number of points in graph= 3
+-----------
+nCuts = 20.0
+best_auc= 0.7193983866183472
