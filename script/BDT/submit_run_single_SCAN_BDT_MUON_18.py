@@ -51,7 +51,6 @@ analyzer="EEMu_MuMuE_Method"
 version="2608.2"
 
 ###--step2                                                                                                                                                                                               
-
 list_BoostType=["Grad"]
 transforms=["I","G"]
 list_BaggedSampleFraction=['0.3', '0.4', '0.5','0.6','0.7']
@@ -60,15 +59,15 @@ list_MinNodeSize=['0.5', '1', '2.5']
 list_NTrees=['1000','1500','3000']
 list_Shrinkage=['0.01', '0.005', '0.001']
 list_nCuts=['10','20','30']
-list_SeparationType=["CrossEntropy"]
+list_SeparationType=["CrossEntropy","GiniIndex"]
 
 ##--step3
-list_BaggedSampleFraction=['0.3', '0.4', '0.5','0.6','0.7']
-list_MaxDepth=['4','6','8']
-list_MinNodeSize=['0.1','0.5', '1', '2.5']
-list_NTrees=['1000','1500','3000']
-list_Shrinkage=['0.001','0.0005','0.0001']
-list_nCuts=['10','20','30']
+#list_BaggedSampleFraction=['0.3', '0.4', '0.5','0.6','0.7']
+#list_MaxDepth=['4','6','8']
+#list_MinNodeSize=['0.1','0.5', '1', '2.5']
+#list_NTrees=['1000','1500','3000']
+#list_Shrinkage=['0.001','0.0005','0.0001']
+#list_nCuts=['10','20','30']
 
 
 

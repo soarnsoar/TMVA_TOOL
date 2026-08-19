@@ -59,15 +59,15 @@ list_MinNodeSize=['0.5', '1', '2.5']
 list_NTrees=['1000','1500','3000']
 list_Shrinkage=['0.01', '0.005', '0.001']
 list_nCuts=['30','40','50']
-list_SeparationType=["CrossEntropy"]
+list_SeparationType=["CrossEntropy","GiniIndex"]
 
 ##--step3
-list_BaggedSampleFraction=['0.1', '0.4', '0.5','0.6','0.8']
-list_MaxDepth=['4','6','8']
-list_MinNodeSize=['0.1','0.5', '1', '2.5']
-list_NTrees=['3000','5000']
-list_Shrinkage=['0.001','0.0005','0.0001']
-list_nCuts=['30','40','50']
+#list_BaggedSampleFraction=['0.1', '0.4', '0.5','0.6','0.8']
+#list_MaxDepth=['4','6','8']
+#list_MinNodeSize=['0.1','0.5', '1', '2.5']
+#list_NTrees=['3000','5000']
+#list_Shrinkage=['0.001','0.0005','0.0001']
+#list_nCuts=['30','40','50']
 
 
 submit=1
